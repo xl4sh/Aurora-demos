@@ -29,13 +29,13 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 
 ### Emulation Plan Details
 | Field | Description |
-|----------|-----------|
+|  :---:  | --------------- |
 | Adversary Name  | This refers to the name or codename of the attacker being simulated in the exercise. |
 | Creation Time   | This indicates the exact date and time when the emulation plan or attack scenario was created. |
 
 ### Attack Step
 | Field | Description |
-|----------|-----------|
+|  :---:  | --------------- |
 | uuid  | A unique identifier for the attack step, ensuring that each step can be individually referenced and tracked. |
 | name   | A human-readable name for the attack step, which describes what the step aims to achieve or the action being performed. |
 | id   | An identifier that may be used within a specific framework or system to reference the attack step. |
