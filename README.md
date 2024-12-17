@@ -53,7 +53,7 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 ## Usage
 ### The emulation infrastructure
 <p align="center">
-  <img width="900" src="images/the%20emulation%20infrastructure.png" alt="cli output"/>
+  <img width="1200" src="images/the%20emulation%20infrastructure.png" alt="cli output"/>
 </p>
 
 ### Execute the attack manually
