@@ -57,7 +57,7 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 </p>
 
 ### Execute the attack manually
-①Download the latest server release for your platform, and just run the binary.
+①Download the latest sliver server release for your platform, and just run the binary.
 ```
 kali > curl https://sliver.sh/install|sudo bash
 kali > sliver
