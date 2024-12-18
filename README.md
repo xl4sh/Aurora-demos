@@ -57,7 +57,7 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 </p>
 Attacker: Kali     
 
-You can download form Official website of Kali(https://www.kali.org/)
+You can download form official website of Kali(https://www.kali.org/)
 
 Victims：a Windows 10, a macOS and an Ubuntu
 
