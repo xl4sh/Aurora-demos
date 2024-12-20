@@ -53,9 +53,9 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 ## Usage
 ### The emulation infrastructure
 <p align="center">
-  <img width="1200" src="images/the%20emulation%20infrastructure.png" alt="cli output"/>
+  <img width="1200" src="images/the%20emulation%20infrastructure.jpg" alt="cli output"/>
 </p>
-Attacker: Kali     
+Attackers: a Kali, a Windows 10     
 
 You can download form official website of Kali(https://www.kali.org/)
 
