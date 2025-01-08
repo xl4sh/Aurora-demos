@@ -19,8 +19,8 @@ We are preparing publishing the source code of Aurora.
 Our paper: [From Sands to Mansions: Simulating Full Attack Chain with LLM-Organized Knowledge](https://arxiv.org/pdf/2407.16928)
 
 ## Resources & Socials
-* 📜 [Documentation, training, and use-cases]()(Comming Soon)
-* ✍️ [aurora's blog]()(Comming Soon)
+* 📜 [Documentation, training, and use-cases]()(Coming Soon)
+* ✍️ [aurora's blog]()(Coming Soon)
 * 🌐 [Homepage](https://auroraattack.github.io/)
 
 ## Attack Demos
