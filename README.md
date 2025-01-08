@@ -29,19 +29,63 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
 
 ### Emulation Plan Details
 | Field | Description |
-|----------|-----------|
-| Adversary Name  |  |
-| Creation Time   |  |
+|  :---:  | --------------- |
+| Adversary Name  | This refers to the name or codename of the attacker being simulated in the exercise. |
+| Creation Time   | This indicates the exact date and time when the emulation plan or attack scenario was created. |
 
 ### Attack Step
 | Field | Description |
-|----------|-----------|
-| uuid  |  |
-| name   |  |
-| id   |  |
+|  :---:  | --------------- |
+| uuid  | A unique identifier for the attack step, ensuring that each step can be individually referenced and tracked. |
+| name   | A human-readable name for the attack step, which describes what the step aims to achieve or the action being performed. |
+| id   | An identifier that may be used within a specific framework or system to reference the attack step. |
+| source   | The origin or creator of the attack step, which can indicate whether it was developed internally, derived from a known threat intelligence source, or part of a manual process. |
+| supported_platforms   | The operating systems or environments on which the attack step can be executed. |
+| tactics   | The high-level goals or phases of the attack that this step supports. |
+| technique   | The specific methods or technologies used in the attack step.  |
+| description   | A detailed explanation of what the attack step does. |
+| executor   | The command, script, or series of actions that need to be executed to carry out the attack step. |
+| arguments   | Any parameters or inputs required by the executor to function correctly. |
+| preconditions   | The conditions that must be met before the attack step can be successfully executed.  |
+| effects   | The outcomes or changes that result from executing the attack step. |
+
 
 ## Usage
-To be completed by Jiang Yi and Zhengkai.
+### The emulation infrastructure
+<p align="center">
+  <img width="1200" src="images/the%20emulation%20infrastructure.jpg" alt="cli output"/>
+</p>
+Attackers: a Kali, a Windows 10     
+
+You can download form official website of Kali(https://www.kali.org/)
+
+Victims：a Windows 10, a macOS and an Ubuntu
+
+### Execute the attack manually
+Each `uuid` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
+
+①Download the latest `Sliver` or `Metasploit` for your attack platform, and just run the binary.
+```bash
+# Sliver
+kali > curl https://sliver.sh/install|sudo bash
+kali > sliver 
+# Metasploit
+kali > sudo apt-get install metasploit-framework
+kali > msfconsole 
+```
+
+②Utilize `Sliver` or `Metasploit` to generate an implant for the target victim and initiate listening.
+
+③Download the implant manually and execute it on the target machine.
+
+④Interact with a specific session identified by session_id.
+
+⑤Open an interactive shell on the compromised machine.
+
+⑥Execute attack commands, for example, "Copy the Edge browser's default user data directory to a specified location for further analysis."
+```
+shell > Copy-Item "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default" -Destination "C:\Users\win\Desktop\Edge" -Force -Recurse
+```
 
 ## System Overview
 <p align="center">
