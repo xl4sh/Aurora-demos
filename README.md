@@ -56,10 +56,9 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
   <img width="1200" src="images/the%20emulation%20infrastructure.jpg" alt="cli output"/>
 </p>
 Attackers: a Kali, a Windows 10     
-
-You can download form official website of Kali(https://www.kali.org/)
-
 Victims：a Windows 10, a macOS and an Ubuntu
+
+You can download the attack simulation environment from [here](https://drive.google.com/file/d/1cx-xcn10rDQaoq1SC9CW__0tbZVA5rEo/view?usp=sharing).
 
 ### Execute the attack manually
 Each `uuid` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
