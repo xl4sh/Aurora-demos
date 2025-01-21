@@ -56,8 +56,8 @@ Each folder in `examples/` contains an attach chain, which includes the emulatio
   <img width="1200" src="images/the%20emulation%20infrastructure.jpg" alt="cli output"/>
 </p>
 Attackers: Kali,Windows 10<br>
-DNS_server:Debian<br>
-Firewall:pfSense<br>
+DNS_server: Debian<br>
+Firewall: pfSense<br>
 Victims：Windows 10,macOS,Ubuntu<br>
 
 You can download the attack simulation environment from [here](https://drive.google.com/file/d/1cx-xcn10rDQaoq1SC9CW__0tbZVA5rEo/view?usp=sharing).
