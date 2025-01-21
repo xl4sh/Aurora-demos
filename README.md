@@ -60,7 +60,7 @@ DNS_server: Debian<br>
 Firewall: pfSense<br>
 Victims：Windows 10,macOS,Ubuntu<br>
 
-You can download the attack simulation environment from [here](https://drive.google.com/file/d/1cx-xcn10rDQaoq1SC9CW__0tbZVA5rEo/view?usp=sharing).
+You can visit this [page](https://auroraattack.github.io) to view more detailed information about executing the attack chain using the simulation environment, or you can directly download the attack simulation environment from [here](https://drive.google.com/file/d/1cx-xcn10rDQaoq1SC9CW__0tbZVA5rEo/view?usp=sharing).
 
 ### Execute the attack manually
 Each `uuid` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs. 
