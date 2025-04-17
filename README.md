@@ -7,9 +7,9 @@ Note that automatic deployment is applicable to VirtualBox. Of course, if you ar
 
 ```bash
 # Prohibited repeated deployment
-python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path -nr
+python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path --url_table #url_table path -nr
 # Allow for repeated deployment
-python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path -r
+python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path --url_table #url_table path -r
 ```
 # Generation of attack scripts: 
 
