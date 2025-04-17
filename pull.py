@@ -202,9 +202,9 @@ def import_ova_ovf(file_path, vm_path):
 def main():
     parser = argparse.ArgumentParser(description="Automate the download and deployment of multiple target machines.")
     parser.add_argument('-p', '--plan', help="Path to attack plan YAML file or attacker")
-    parser.add_argument('-d', '--download_dir', default='D:\\pull\\downloads', help="Storage path")
+    parser.add_argument('-d', '--download_dir', default='downloads', help="Storage path")
     parser.add_argument('-vm', '--vm_path', default='C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', help="VirtualBox path")
-    parser.add_argument('--url_table', default='D:\\pull\\url_table.csv', help="Path to the URL table CSV file")
+    parser.add_argument('--url_table', default='url_table.csv', help="Path to the URL table CSV file")
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-r', '--repeat', action='store_true', help="Allow repeated downloads with renamed files")
     group.add_argument('-nr', '--no_repeat', action='store_true', help="Avoid repeated downloads if file or folder exists")
