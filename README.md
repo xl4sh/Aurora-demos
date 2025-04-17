@@ -1,5 +1,9 @@
 # Pull and deploy the attack range: 
-This 
+After successfully generating the yml file of the attack chain, you can use pull.py to automatically read the files within it to automatically pull and deploy the virtual machine range. 
+
+Note that automatic deployment is applicable to VirtualBox. Of course, if you are using Vmware, you can also manually deploy it yourself based on the downloaded files.
+
+
 
 ```bash
 # Prohibited repeated deployment
