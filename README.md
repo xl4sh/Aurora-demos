@@ -3,9 +3,9 @@ This
 
 ```bash
 # Prohibited repeated deployment
-python pull.py -p <path of yml file> -d <storage path> -vm <path of VBoxManage.exe> -nr
+python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path -nr
 # Allow for repeated deployment
-python pull.py -p <path of yml file> -d <storage path> -vm <path of VBoxManage.exe> -r
+python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path -r
 ```
 # Generation of attack scripts: 
 
