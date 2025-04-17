@@ -17,7 +17,7 @@ This mode requires users to consider their own configuration for adjustment. If 
 ```bash
 ## Prohibiting duplicate deployment
 python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr
-# Allowing duplicate downloads
+## Allowing duplicate downloads
 python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r
 ```
 ## Generation of attack scripts: 
