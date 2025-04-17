@@ -21,7 +21,7 @@ python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url
 python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r
 ```
 ## Generation of attack scripts: 
-The logic of the script is to configure itself based on the parameters provided in the attack_plan.yml file. The script reads commands and parameters by determining the type of executor specified. Additionally, it explicitly extracts arguments marked as Required: true from the exploit and payload sections of the file and outputs them directly into the executable script. This design simplifies user configuration and minimizes manual intervention. After executing this script, users will obtain a large number of ready-to-run attack scripts, streamlining the setup process and saving operational time
+The logic of the script is to configure itself based on the parameters provided in the `attack_plan.yml`. The script reads commands and parameters by determining the type of executor specified. Additionally, it explicitly extracts arguments marked as `Required: true` from the `exploit` and `payload` sections of the file and outputs them directly into the executable script. This design simplifies user configuration and minimizes manual intervention. After executing this script, users will obtain a large number of ready-to-run attack scripts, streamlining the setup process and saving operational time
 
 ```bash
 python generateExecution.py
