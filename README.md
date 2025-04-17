@@ -38,6 +38,7 @@ python generateExecution.py
 python ../results/execution_xxxx.py
 ```
 Just configure a few parameters to run the attack script.
+
 Click the following headings for details:
 <details>
 <summary>EXAMPLE-execution_arp_cache_info_printed-1</summary>
