@@ -15,9 +15,9 @@ Network configuration: The downloaded virtual machine will automatically configu
 
 ```bash
 # Prohibiting duplicate deployment
-python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path --url_table #url_table path -nr
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr
 # Allowing duplicate downloads
-python pull.py -p #yml file path -d #storage path -vm #VBoxManage.exe path --url_table #url_table path -r
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r
 ```
 # Generation of attack scripts: 
 
