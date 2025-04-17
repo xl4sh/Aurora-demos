@@ -24,10 +24,12 @@ python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url
 
 
 ```bash
+python generateExecution.py
 ```
-# Execution of attack script: 
+## Execution of attack script: 
 
 
 ```bash
+python ../results/execution_arp_info_known-1.py
 ```
 
