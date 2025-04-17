@@ -36,4 +36,24 @@ python generateExecution.py
 ```bash
 python ../results/execution_arp_info_known-1.py
 ```
+<details>
+<summary>EXAMPLE-execution_arp_cache_info_printed-1</summary>
 
+Rich can render multiple flicker-free [progress](https://rich.readthedocs.io/en/latest/progress.html) bars to track long-running tasks.
+
+For basic usage, wrap any sequence in the `track` function and iterate over the result. Here's an example:
+
+```python
+from rich.progress import track
+
+for step in track(range(100)):
+    do_step(step)
+```
+
+It's not much harder to add multiple progress bars. Here's an example taken from the docs:
+
+![progress](images/example1.gif)
+
+The columns may be configured to show any details you want. Built-in columns include percentage complete, file size, file speed, and time remaining. Here's another example showing a download in progress:
+
+</details>
