@@ -16,7 +16,7 @@ We are preparing publishing the source code of Aurora.
 - Automates construction of a 1,800+ action attack space with over 300 chains.
 - AURORA generates higher quality attack plans with broader TTP coverage.
 
-Our paper: [From Sands to Mansions: Simulating Full Attack Chain with LLM-Organized Knowledge](https://arxiv.org/pdf/2407.16928)
+Our paper: [From Sands to Mansions: Towards Automated Cyberattack Emulation with Classical Planning and Large Language Models](https://arxiv.org/pdf/2407.16928)
 
 ## Resources & Socials
 * 📜 [Documentation, training, and use-cases]()(Coming Soon)
