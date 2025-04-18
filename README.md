@@ -85,7 +85,11 @@ python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url
 - `-firewall`：Use pfSense firewall to isolate the attack aircraft and the target aircraft  
 
 
-Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use "python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall no". If the download folder has already downloaded the corresponding shooting range, it will display:<p align="center">
+Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use 
+``` bash
+python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall no
+```
+If the download folder has already downloaded the corresponding shooting range, it will display:<p align="center">
 
 <img src="images/No_repeat.png" alt="request" width="1200"/>
 
@@ -94,7 +98,11 @@ Entering "yes" will directly start the corresponding virtual machine of the rang
 
 On the contrary, if repetition is allowed, the downloaded file will be automatically renamed to avoid conflicts.
 
-Besides, if you want to use firewall for isolation. You can use "python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall yes". If it was not downloaded originally, firewall.ova will be automatically downloaded. If there is already a download, it will skip and ask if you want to start it.
+Besides, if you want to use firewall for isolation. You can use 
+``` bash
+python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall yes
+```
+If it was not downloaded originally, firewall.ova will be automatically downloaded. If there is already a download, it will skip and ask if you want to start it.
 
 When using pfsense, attention should be paid to the configuration. The configuration of the downloaded and deployed pfsense is as follows:
 <p align="center">
