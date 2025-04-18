@@ -72,9 +72,9 @@ Network configuration: The downloaded virtual machine will automatically configu
 
 ``` bash
 ## Prohibiting duplicate deployment
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall/directly
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall #yes/no
 ## Allowing duplicate downloads
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r -firewall/directly
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r -firewall #yes/no
 ```
 - `yml_file_path`：The path of the attack chain yml file  
 - `storage_path`：The storage path of the downloaded target machine file  
@@ -83,9 +83,9 @@ python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url
 - `-nr`：Prohibiting duplicate deployment  
 - `-r`：Allowing duplicate downloads  
 - `-firewall`：Use pfSense firewall to isolate the attack aircraft and the target aircraft  
-- `-directly`：Directly connect the attack aircraft and the target aircraft  
 
-Example:
+
+Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use "python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall yes". If the download folder has already downloaded the corresponding shooting range, it will display:
 
 ### The emulation infrastructure
 
