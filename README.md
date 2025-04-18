@@ -72,10 +72,20 @@ Network configuration: The downloaded virtual machine will automatically configu
 
 ``` bash
 ## Prohibiting duplicate deployment
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall/directly
 ## Allowing duplicate downloads
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r -firewall/directly
 ```
+yml_file_path：The path of the attack chain yml file
+storage_path：The storage path of the downloaded target machine file
+VBoxManage.exe_path：The VBoxManage.exe path of VirtualBox is used for invocation
+url_table_path：The path of the Download Link mapping table (url_table.csv)
+-nr:Prohibiting duplicate deployment
+-r:Allowing duplicate downloads
+-firewall:Use pfsense firewall to isolate the attack aircraft and the target aircraft
+-directly：Directly connect the attack aircraft and the target aircraft
+
+Example:
 
 ### The emulation infrastructure
 
