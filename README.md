@@ -102,6 +102,7 @@ When using pfsense, attention should be paid to the configuration. The configura
 <img src="images/pfsense.png" alt="pfsense set" width="1200"/>
 
 </p>
+Therefore, two corresponding host-only network cards need to be set up in VirtualBox in advance. Meanwhile, it is recommended to turn off the NAT network card.
 
 ### The emulation infrastructure
 
