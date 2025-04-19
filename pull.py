@@ -64,7 +64,7 @@ def get_download_url_and_os(cve, url_table_path):
             os_type_column = line[0].strip()
             cve_column = line[1].strip().lower()
             url_column = line[2].strip()
-            file_name = os.path.basename(url_column)  # set URL basename as default file name
+            file_name = os.path.basename(url_column)
             if len(line) >= 4 and line[3].strip():
                 file_name = line[3].strip()
             if cve == cve_column:
@@ -201,7 +201,9 @@ def import_ova_ovf(file_path, vm_path):
 
 def main():
     parser = argparse.ArgumentParser(description="Automate the download and deployment of multiple target machines.")
-    parser.add_argument('-p', '--plan', help="Path to attack plan YAML file or attacker")
+    parser.add_argument('-firewall', choices=['yes', 'no'], default='no',
+                        help="Whether to deploy the firewall VM first (yes/no)")
+    parser.add_argument('-p', '--plan', help="Path to attack plan YAML file or 'attacker'")
     parser.add_argument('-d', '--download_dir', default='downloads', help="Storage path")
     parser.add_argument('-vm', '--vm_path', default='C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', help="VirtualBox path")
     parser.add_argument('--url_table', default='url_table.csv', help="Path to the URL table CSV file")
@@ -209,111 +211,125 @@ def main():
     group.add_argument('-r', '--repeat', action='store_true', help="Allow repeated downloads with renamed files")
     group.add_argument('-nr', '--no_repeat', action='store_true', help="Avoid repeated downloads if file or folder exists")
     args = parser.parse_args()
+
     download_dir = args.download_dir
     vm_path = args.vm_path
-    attack_plan_path = args.plan
-
-    targets = []
+    url_table_path = args.url_table
     downloaded_files = {}
     zip_files_to_delete = []
 
-    # download attacker
-    if attack_plan_path == "attacker":
-        csv_path = args.url_table
-        if not os.path.exists(csv_path):
-            print(f"[Error] url_table.csv not found at {csv_path}")
-            sys.exit(1)
-
-        with open(csv_path, mode='r', encoding='utf-8') as f:
+    # Firewall VM handling (highest priority)
+    if args.firewall == 'yes':
+        print("\nProcessing firewall VM first...")
+        with open(url_table_path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for row in reader:
-                if len(row) >= 3 and row[0].strip() == "Linux" and row[1].strip() == "attacker":
-                    download_url = row[2].strip()
+                if len(row) >= 3 and row[1].strip().lower() == 'firewall':
                     os_type = row[0].strip()
-                    custom_file_name = row[3].strip() if len(row) >= 4 else "attacker"
-                    targets.append(("attacker", os_type, download_url, custom_file_name))
+                    download_url = row[2].strip()
+                    file_name = row[3].strip() if len(row) >= 4 and row[3].strip() else 'firewall'
+                    base_name = os.path.splitext(file_name)[0]
+                    potential = [
+                        os.path.join(download_dir, f"{base_name}.ova"),
+                        os.path.join(download_dir, f"{base_name}.zip"),
+                        os.path.join(download_dir, f"{base_name}.tar.gz"),
+                        os.path.join(download_dir, f"{base_name}.7z"),
+                        os.path.join(download_dir, f"{base_name}.vmdk"),
+                        os.path.join(download_dir, base_name)
+                    ]
+                    exists = any(os.path.exists(p) for p in potential)
+                    if args.no_repeat and exists:
+                        print(f"[Skipping] firewall VM already exists.")
+                        choice = input("Do you want to start the existing firewall VM? (yes/no): ").strip().lower()
+                        if choice == 'yes':
+                            existing = next(p for p in potential if os.path.exists(p))
+                            vm_name = os.path.splitext(os.path.basename(existing))[0]
+                            subprocess.run([vm_path, 'startvm', vm_name, '--type', 'gui'])
+                        continue
+
+                    # download and process
+                    file_path = download_file(download_url, download_dir, url_table_path)
+                    if not file_path:
+                        print("Firewall download failed, skipping firewall VM.")
+                        continue
+                    downloaded_files[('firewall', os_type)] = file_path
+                    if file_path.endswith(('.zip', '.tar.gz', '.7z')):
+                        extract_and_process_files(file_path, download_dir, vm_path, zip_files_to_delete)
+                    else:
+                        handle_downloaded_file(file_path, os_type, download_dir, vm_path)
                     break
 
-        if not targets:
-            print("[x] No attacker record found in url_table.csv")
-            sys.exit(1)
-
-    # read yml attack plan
-    elif attack_plan_path:
-        print(f"Loading plan from {attack_plan_path}...")
-        with open(attack_plan_path, 'r', encoding='utf-8') as f:
+    # Attacker or plan handling
+    targets = []
+    if args.plan == 'attacker':
+        print("\n[Attacker Mode] Handling attacker VM setup...")
+        url, os_type, fname = get_download_url_and_os('attacker', url_table_path)
+        if url and os_type:
+            targets.append(('attacker', os_type, url, fname))
+    elif args.plan:
+        print(f"\nLoading plan from {args.plan}...")
+        with open(args.plan, 'r', encoding='utf-8') as f:
             plan_data = yaml.safe_load(f)
-        cve_list = plan_data.get("testbed_requirement", {}).get("CVE", [])
-        if not cve_list:
-            cve_list = ['none']
-
+        cve_list = plan_data.get('testbed_requirement', {}).get('CVE', []) or ['none']
         for cve in cve_list:
-            cve = cve.strip()
-            download_url, os_type, custom_file_name = get_download_url_and_os(cve, args.url_table)
-            if download_url and os_type:
-                targets.append((cve, os_type, download_url, custom_file_name))
+            url, os_type, fname = get_download_url_and_os(cve, url_table_path)
+            if url and os_type:
+                targets.append((cve, os_type, url, fname))
             else:
                 print(f"Skipping CVE {cve}, no matching entry found in table.")
     else:
-        print("No plan file provided, please use -p to provide a YAML plan or 'attacker'.")
+        print("No plan file provided. Please use -p to specify a plan YAML file or use 'attacker'.")
         return
 
-    # download
-    for index, (cve, os_type, download_url, custom_file_name) in enumerate(targets):
-        print(f"\nProcessing target {index + 1}: CVE {cve} ({os_type})...")
+    # Process all targets
+    for idx, (cve, os_type, download_url, custom_file_name) in enumerate(targets, 1):
+        print(f"\nProcessing target {idx}: CVE {cve} ({os_type})...")
+        base_name = os.path.splitext(custom_file_name)[0]
+        potential = [
+            os.path.join(download_dir, f"{base_name}.ova"),
+            os.path.join(download_dir, f"{base_name}.zip"),
+            os.path.join(download_dir, f"{base_name}.tar.gz"),
+            os.path.join(download_dir, f"{base_name}.7z"),
+            os.path.join(download_dir, f"{base_name}.vmdk"),
+            os.path.join(download_dir, base_name)
+        ]
+        exists = any(os.path.exists(p) for p in potential)
+        if args.no_repeat and exists:
+            print(f"[Skipping] {cve} already exists.")
+            user_input = input("Do you want to directly start the existing VM? (yes/no): ").strip().lower()
+            if user_input == "yes":
+                # start existing VM
+                existing_file = next(path for path in potential if os.path.exists(path))
+                vm_name = os.path.splitext(os.path.basename(existing_file))[0]
+                print(f"Launching existing VM '{vm_name}' from {existing_file}...")
 
-        if (cve, os_type) in downloaded_files:
-            print(f"Using cached file for CVE {cve} ({os_type})")
-            file_path = downloaded_files[(cve, os_type)]
-        else:
-            base_name = os.path.splitext(custom_file_name)[0]
-            potential_targets = [
-                os.path.join(download_dir, f"{base_name}.ova"),
-                os.path.join(download_dir, f"{base_name}.zip"),
-                os.path.join(download_dir, f"{base_name}.tar.gz"),
-                os.path.join(download_dir, f"{base_name}.7z"),
-                os.path.join(download_dir, f"{base_name}.vmdk"),
-                os.path.join(download_dir, base_name)
-            ]
-            print(f"Base name used: {base_name}")
-            file_already_exists = any(os.path.exists(path) for path in potential_targets)
-            
-            if args.no_repeat and file_already_exists:
-                print(f"[Skipping] {cve} already exists.")
-                user_input = input("Do you want to directly start the existing VM? (yes/no): ").strip().lower()
-                if user_input == "yes":
-                    # start existing VM
-                    existing_file = next(path for path in potential_targets if os.path.exists(path))
-                    vm_name = os.path.splitext(os.path.basename(existing_file))[0]
-                    print(f"Launching existing VM '{vm_name}' from {existing_file}...")
+                try:
+                    subprocess.run([vm_path, "startvm", vm_name, "--type", "gui"], check=True)
+                    print(f"VM '{vm_name}' started successfully.")
+                except subprocess.CalledProcessError as e:
+                    print(f"Failed to start VM '{vm_name}': {e}")
+            else:
+                print("Skipping as requested or you can use -r to download.")
+            continue
 
-                    try:
-                        subprocess.run([vm_path, "startvm", vm_name, "--type", "gui"], check=True)
-                        print(f"VM '{vm_name}' started successfully.")
-                    except subprocess.CalledProcessError as e:
-                        print(f"Failed to start VM '{vm_name}': {e}")
-                else:
-                    print("Skipping as requested or you can use -r to download.")
-                continue
-
-            file_path = download_file(download_url, download_dir,args.url_table)
-            if not file_path:
-                print(f"Download failed for {cve} ({os_type}), skipping...")
-                continue
-
-            downloaded_files[(cve, os_type)] = file_path
-
+        file_path = download_file(download_url, download_dir, url_table_path)
+        if not file_path:
+            print(f"Download failed for CVE {cve}, skipping.")
+            continue
+        downloaded_files[(cve, os_type)] = file_path
         if file_path.endswith(('.zip', '.tar.gz', '.7z')):
             extract_and_process_files(file_path, download_dir, vm_path, zip_files_to_delete)
         else:
             handle_downloaded_file(file_path, os_type, download_dir, vm_path)
 
-    for zip_file in zip_files_to_delete:
-        if os.path.exists(zip_file):
-            print(f"Deleting archive: {zip_file}")
-            os.remove(zip_file)
+    # Cleanup archives
+    for z in zip_files_to_delete:
+        if os.path.exists(z):
+            print(f"Deleting archive: {z}")
+            os.remove(z)
 
     print("All VMs processed, all archives deleted.")
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
