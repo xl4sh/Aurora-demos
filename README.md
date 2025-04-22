@@ -117,7 +117,7 @@ Special virtual machine download：In addition to the target machine information
 
 For example:
 ``` bash
-python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall yes
+python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr
 ```
 
 ### The emulation infrastructure
