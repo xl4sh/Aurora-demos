@@ -259,13 +259,23 @@ def main():
                         handle_downloaded_file(file_path, os_type, download_dir, vm_path)
                     break
 
-    # Attacker or plan handling
+    # Attacker/Ubuntu/macos or plan handling
     targets = []
     if args.plan == 'attacker':
         print("\n[Attacker Mode] Handling attacker VM setup...")
         url, os_type, fname = get_download_url_and_os('attacker', url_table_path)
         if url and os_type:
             targets.append(('attacker', os_type, url, fname))
+    elif args.plan == 'Ubuntu':
+        print("\n[Ubuntu Mode] Handling Ubuntu VM setup...")
+        url, os_type, fname = get_download_url_and_os('Ubuntu', url_table_path)
+        if url and os_type:
+            targets.append(('Ubuntu', os_type, url, fname))
+    elif args.plan == 'macos':
+        print("\n[macOS Mode] Handling macOS VM setup...")
+        url, os_type, fname = get_download_url_and_os('macos', url_table_path)
+        if url and os_type:
+            targets.append(('macos', os_type, url, fname))
     elif args.plan:
         print(f"\nLoading plan from {args.plan}...")
         with open(args.plan, 'r', encoding='utf-8') as f:
