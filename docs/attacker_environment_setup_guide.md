@@ -12,10 +12,9 @@ This document provides step-by-step instructions to configure the Kali Linux env
   - Password: `kali`  
 - **OS Details**:  
   ```bash
-  Distributor ID: Kali
-  Description:    Kali GNU/Linux Rolling
-  Release:        2025.1
-  Codename:       kali-rolling
+  Distributor ID:  Kali
+  Python-version:  3.13.2
+  Release:         2025.1
 
 ## Environment Configuration
 ### 1. Python Virtual Environment Setup
