@@ -3,7 +3,7 @@ If no configuration information is specified, the default Settings can be used.
 
 | CVE | Special Settings |
 |:--:|----|
-| CVE-2020-7246 | E-mail: <span>otisrush@localhost.com</span>; Password: otis666; should manually click http://<target IP>/uploads/users/xxx.php |
+| CVE-2020-7246 | E-mail: otisrush[at]localhost.com; Password: otis666; should manually click http://<target IP>/uploads/users/xxx.php |
 | CVE-2018-7600 | RPORT: 9001 |
 | CVE-2018-19422 | username: admin; password: Scam2021; TARGETURI:  /subrion |
 | CVE-2018-1000094 | username: fog; password: hacksudoISRO; TARGETURI:  /cms/ |
