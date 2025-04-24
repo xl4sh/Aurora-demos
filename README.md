@@ -50,7 +50,7 @@ pip install attack-executor
 
 ### 1. Pull and deploy the attack emulation environments:
 
-Use the generated attack chain YAML file and run pull.py to automatically download and deploy the corresponding virtual machine environment (works with VirtualBox; VMware users can manually deploy the downloaded files).
+Use the generated attack chain YML file and run pull.py to automatically download and deploy the corresponding virtual machine environment (works with VirtualBox; VMware users can manually deploy the downloaded files).
 
 Two download modes are supported:
 
