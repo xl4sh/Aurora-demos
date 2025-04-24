@@ -166,34 +166,6 @@ This attack simulation targets Windows systems using `Sliver` and `Metasploit`. 
 
 ![progress](images/example2.gif)
 
-<!-- ### Execute the attack manually
-
-Each `uuid` encompasses an `executor`, within which the `command` parameter specifies the actual attack command that needs to be executed. You should proceed manually through the attack steps in the sequence of the UUIDs.
-
-①Download the latest `Sliver` or `Metasploit` for your attack platform, and just run the binary.
-
-``` bash
-# Sliver
-kali > curl https://sliver.sh/install|sudo bash
-kali > sliver 
-# Metasploit
-kali > sudo apt-get install metasploit-framework
-kali > msfconsole 
-```
-
-②Utilize `Sliver` or `Metasploit` to generate an implant for the target victim and initiate listening.
-
-③Download the implant manually and execute it on the target machine.
-
-④Interact with a specific session identified by session_id.
-
-⑤Open an interactive shell on the compromised machine.
-
-⑥Execute attack commands, for example, "Copy the Edge browser's default user data directory to a specified location for further analysis."
-
-```         
-shell > Copy-Item "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default" -Destination "C:\Users\win\Desktop\Edge" -Force -Recurse
-``` -->
 
 ## Licensing
 
