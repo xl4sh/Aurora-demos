@@ -142,7 +142,7 @@ python generateExecution.py
 
 ### 3. Execute attack scripts:
 
-Detailed configuration steps are documented in [ATTACKER_ENVIRONMENT_SETUP_GUIDE.md](.docs/attacker_environment_setup_guide.md).  
+Detailed configuration steps are documented in [GUIDE](./docs/attacker_environment_setup_guide.md).  
 Follow the guide to prepare your Kali environment for attack script execution.
 
 ```bash
