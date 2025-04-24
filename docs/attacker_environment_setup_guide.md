@@ -79,7 +79,7 @@ source env_aurora-executor/bin/activate
 
 #### 2. Install Required Packages
 ```bash
-# Validated Versions: attack-executor==0.1.2 questionary-2.1.0  rich-14.0.0  pymetasploit3-1.0.6  sliver-py-0.0.19
+# Validated Versions: attack-executor==0.2.0 questionary-2.1.0  rich-14.0.0  pymetasploit3-1.0.6  sliver-py-0.0.19
 pip install attack-executor
 pip install questionary  
 pip install rich 
