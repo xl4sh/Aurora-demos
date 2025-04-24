@@ -50,19 +50,17 @@ pip install attack-executor
 
 ### 1. Pull and deploy the attack emulation environments:
 
-After successfully generating the yml file of the attack chain, you can use pull.py to automatically read the files within it to automatically pull and deploy the virtual machine range.
+Use the generated attack chain YAML file and run pull.py to automatically download and deploy the corresponding virtual machine environment (works with VirtualBox; VMware users can manually deploy the downloaded files).
 
-Note that automatic deployment is applicable to VirtualBox. Of course, if you are using Vmware, you can also manually deploy it yourself based on the downloaded files.
+Two download modes are supported:
 
-There are two modes for download deployment: prohibiting duplicate deployment and allowing duplicate downloads.
+No duplicate downloads: If the file already exists, it will prompt whether to directly proceed with deployment.
 
-When repeated downloading is not allowed, if the storage path has already downloaded a file, it will ask whether it is necessary to start directly.
+Allow duplicate downloads: Files will be automatically renamed to avoid conflicts.
 
-When repeated downloads are allowed, the downloaded file will be automatically renamed for deployment to prevent conflicts.
+During initial deployment (including repeated deployments), the VM will not start automatically, allowing users to modify configurations.
 
-Note that during the initial deployment (including the case of duplicate deployment), considering that users may need to modify the configuration, the virtual machine will not start automatically.
-
-Network configuration: The downloaded virtual machine will automatically configure two network cards. One selects the NAT mode and the other selects the Host-only mode. This mode requires users to consider their own configuration for adjustment. If the VirtualBox itself does not configure the corresponding network card, the problem of failure to start will occur.
+By default, two network adapters will be configured: one in NAT mode and the other in Host-only mode. Make sure the required network is configured in VirtualBox; otherwise, the VM may fail to start.
 
 ``` bash
 ## Prohibiting duplicate deployment
