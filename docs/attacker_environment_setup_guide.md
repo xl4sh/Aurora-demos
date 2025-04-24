@@ -4,7 +4,7 @@ This document provides step-by-step instructions to configure the Kali Linux env
 
 ---
 
-You also need to install the tools that will be used by Attack Executor. For now, Attack Executor supports the following tools:
+You need to install the tools that will be used by Attack Executor. For now, Attack Executor supports the following tools:
 - [Metasploit](#metasploit)
 - [Sliver](#sliver)
 - Nmap
