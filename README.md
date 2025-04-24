@@ -148,8 +148,6 @@ But no worries—we’ve also got a pre-configured Kali attack machine ready for
 ```bash
 python ../results/execution_xxxx.py
 ```
-Just configure a few parameters to run the attack script.
-
 Click the following headings for details:
 <details>
 <summary>EXAMPLE-1_execution_keyboard_input_simulated-3</summary>
