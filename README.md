@@ -43,10 +43,8 @@ For more details, please refer to the [introduction to attack chains](https://gi
 To execute the attack scripts, you need to configure an attack machine that contains the necessary attack tools used.
 Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_executor) to execute the attack actions provided by different attack tools.
 
-Here are the dependencies that you need to install.
-```
-pip install attack-executor
-```
+Detailed configuration steps are documented in [GUIDE](./docs/attacker_environment_setup_guide.md).Follow the guide to prepare your Kali environment for attack script execution.
+But no worries—we’ve also got a pre-configured Kali attack machine ready for you! You can download it directly from [here](https://www.baidu.com)
 
 ### 1. Pull and deploy the attack emulation environments:
 
@@ -140,8 +138,7 @@ python generateExecution.py
 
 ### 3. Execute attack scripts:
 
-Detailed configuration steps are documented in [GUIDE](./docs/attacker_environment_setup_guide.md).Follow the guide to prepare your Kali environment for attack script execution.
-But no worries—we’ve also got a pre-configured Kali attack machine ready for you! You can download it directly from [here](https://www.baidu.com)
+
 
 ```bash
 python ../results/execution_xxxx.py
