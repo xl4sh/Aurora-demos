@@ -138,7 +138,7 @@ python generateExecution.py
 
 ### 3. Execute attack scripts:
 
-
+We've generated executable attack scripts with AURORA and placed them in [here](https://github.com/LexusWang/Aurora-demos/tree/main/attack_execution_scripts) .
 
 ```bash
 python ../results/execution_xxxx.py
