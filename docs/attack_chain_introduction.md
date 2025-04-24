@@ -7,7 +7,7 @@
 | Adversary Name | This refers to the name or codename of the attacker being simulated in the exercise. |
 | Creation Time | This indicates the exact date and time when the emulation plan or attack scenario was created. |
 
-## Attack Step
+## Attack Action
 
 | Field | Description |
 |:--:|----|
