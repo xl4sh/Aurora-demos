@@ -1,7 +1,4 @@
 ## Emulation Infrastructure
-<p align="center">
-  <img width="800" src="assets/images/the%20emulation%20infrastructure.jpg" alt="cli output"/>
-</p>
 
 ### Attacker Information
 
