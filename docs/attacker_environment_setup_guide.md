@@ -4,6 +4,57 @@ This document provides step-by-step instructions to configure the Kali Linux env
 
 ---
 
+You also need to install the tools that will be used by Attack Executor. For now, Attack Executor supports the following tools:
+- [Metasploit](#metasploit)
+- [Sliver](#sliver)
+- Nmap
+
+## Tools Download and Configuration
+### Sliver
+
+#### Installation
+##### Install Sliver-server
+Download sliver-server bin from [their webite](https://github.com/BishopFox/sliver/releases)
+
+```
+$ ./sliver-server
+
+sliver > new-operator --name zer0cool --lhost localhost --lport 34567 --save ./zer0cool.cfg
+[*] Generating new client certificate, please wait ...
+[*] Saved new client config to: /Users/zer0cool/zer0cool.cfg
+
+sliver > multiplayer --lport 34567
+[*] Multiplayer mode enabled!
+```
+
+Then, modify the related entries in `config.ini`:
+```
+[sliver]
+client_config_file = /home/user/Downloads/zer0cool.cfg
+```
+
+### Metasploit
+
+#### Installation
+##### Install Metasploit
+
+```
+$ msfconsole
+msf> load msgrpc [Pass=yourpassword]
+[*] MSGRPC Service:  127.0.0.1:55552 
+[*] MSGRPC Username: msf
+[*] MSGRPC Password: glycNshR
+[*] Successfully loaded plugin: msgrpc
+```
+
+Then, modify the related entries in `config.ini`:
+```
+[metasploit]
+password = glycNshR
+host_ip = 127.0.0.1
+listening_port = 55552
+```
+
 ## System Overview
 - **Name**: Aurora-executor-attacker-kali  
 - **Description**: Kali environment for attack simulation  
