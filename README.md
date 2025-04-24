@@ -120,7 +120,7 @@ python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracl
 
 Attackers: Kali,Windows 10<br> DNS_server: Debian<br> Firewall: pfSense<br> Victims：Windows 10,macOS,Ubuntu<br>
 
-You can visit this [doc](https://github.com/LexusWang/Aurora-demos/blob/main/docs/Emulation_Infrastructure_info.md) to view more detailed information about executing the attack chain using the simulation environment, or you can directly download the attack simulation environment from [here](https://drive.google.com/file/d/1cx-xcn10rDQaoq1SC9CW__0tbZVA5rEo/view?usp=sharing).
+You can visit this [doc](https://github.com/LexusWang/Aurora-demos/blob/main/docs/Emulation_Infrastructure_info.md) to view more detailed information about the simulation environment.
 
 ### 2. Generate attack scripts:
 
