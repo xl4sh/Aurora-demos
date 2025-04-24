@@ -55,9 +55,52 @@ Network configuration: The downloaded virtual machine will automatically configu
 
 ``` bash
 ## Prohibiting duplicate deployment
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall #yes/no
 ## Allowing duplicate downloads
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r -firewall #yes/no
+```
+- `yml_file_path`：The path of the attack chain yml file  
+- `storage_path`：The storage path of the downloaded target machine file  
+- `VBoxManage.exe_path`：The VBoxManage.exe path of VirtualBox is used for invocation  
+- `url_table_path`：The path of the Download Link mapping table (url_table.csv)  
+- `-nr`：Prohibiting duplicate deployment  
+- `-r`：Allowing duplicate downloads  
+- `-firewall`：Use pfSense firewall to isolate the attack aircraft and the target aircraft  
+
+
+Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use 
+``` bash
+python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall no
+```
+If the download folder has already downloaded the corresponding shooting range, it will display:<p align="center">
+
+<img src="images/No_repeat.png" alt="request" width="1200"/>
+
+</p>
+Entering "yes" will directly start the corresponding virtual machine of the range.
+
+On the contrary, if repetition is allowed, the downloaded file will be automatically renamed to avoid conflicts.
+
+Besides, if you want to use firewall for isolation. You can use 
+``` bash
+python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr -firewall yes
+```
+If it was not downloaded originally, firewall.ova will be automatically downloaded. If there is already a download, it will skip and ask if you want to start it.
+
+When using pfsense, attention should be paid to the configuration. The configuration of the downloaded and deployed pfsense is as follows:
+<p align="center">
+
+<img src="images/pfsense.png" alt="pfsense set" width="1200"/>
+
+</p>
+Therefore, two corresponding host-only network cards need to be set up in VirtualBox in advance. Meanwhile, it is recommended to turn off the NAT network card.
+
+
+Special virtual machine download：In addition to the target machine information that can attack the chain file reading, we have also prepared an attack machine (Parrot) virtual machine, as well as an Ubuntu and MacOS target machine. To download these three virtual machines, you just need to enter in -p. 
+
+For example:
+``` bash
+python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table url_table.csv -nr
 ```
 
 #### The emulation infrastructure
