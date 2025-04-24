@@ -165,7 +165,7 @@ This attack simulation targets Windows systems using `Sliver` and `Metasploit`. 
 
 
 ![progress](images/example2.gif)
-
+</details>
 
 ## Licensing
 
