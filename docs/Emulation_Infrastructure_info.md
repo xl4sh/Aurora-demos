@@ -30,14 +30,14 @@ The windows tools are located in the `tools` folder on the desktop. Double-click
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
-| pfSense   | 192.168.199.159 |  CE-2.6.0   |  --- |
+| pfSense   | 192.168.100.63 |  CE-2.6.0   |  --- |
 
 The firewall configuration is as follows:
 
 | Interface        | IP Address          | Related Host          | 
 |:-------------|:------------------|:------------------|
-| WAN(wan) -> em0   | 192.168.199.159/24 |  firewall-pfSense   |
-| LAN(lan) -> em1   | 192.168.1.1/24 |  victim-Windows10,victim-Ubuntu,victim-macOS   |
+| WAN(wan) -> em0   | 192.168.100.63/24 |  firewall-pfSense   |
+| LAN(lan) -> em1   | 192.168.56.1/24 |  victim-Windows10,victim-Ubuntu,victim-macOS   |
 | OPT1(opt1) -> em2   | 10.0.0.1/24 |  attacker-Kali,attacker-Windows10,DNS_server-Debian   |
 
 ### DNS_server Information
@@ -54,6 +54,6 @@ You can simulate the attack process of downloading the implant to the local syst
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
-| Windows10   | 192.168.1.101 | Enterprise 22H2 | victim/123456 |
-| Ubuntu   | 192.168.1.102 | 22.04 | victim/123456 |
-| macOS   | 192.168.1.103 | Monterey 12.0 | victim/123456 |
+| Windows10   | 192.168.56.101 | Enterprise 22H2 | victim/123456 |
+| Ubuntu   | 192.168.56.102 | 22.04 | victim/123456 |
+| macOS   | 192.168.56.103 | Monterey 12.0 | victim/123456 |
