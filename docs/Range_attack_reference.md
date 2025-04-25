@@ -10,7 +10,7 @@ If no configuration information is specified, the default Settings can be used.
 | CVE-2020-25213 | TARGETURI: /blog |
 | CVE-2014-6271 | TARGETURI: /cgi-bin/shell.sh |
 | CVE-2020-24186 | TARGETURI: /assets/fonts/blog/; blogpath: /?p=1 |
-| CVE-2020-14144 |  |
+| CVE-2020-14144 | username: frank; password: 123456 |
 | CVE-2015-8249 | RPORT：8022 |
 | CVE-2015-2342 | RPORT：1617 |
 | CVE-2009-3843 | HttpPassword： sploit； HttpUsername： sploit；RPORT：8282  |
