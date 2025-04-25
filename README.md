@@ -48,7 +48,7 @@ Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_execu
 Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).
 Follow this guide to configure the attack machine for attack execution.
 
-We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1I7jD1fDSoad1xl5OKabJjxfg63LqvBco/view?usp=sharing).
+We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link).
 
 ### 1. Pull and deploy the attack emulation environments:
 We deployed the attack machine in Step 0. 
