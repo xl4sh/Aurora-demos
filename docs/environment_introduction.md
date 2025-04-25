@@ -16,11 +16,11 @@
 | Linux | devguru | CVE-2020-14144 | https://drive.google.com/file/d/1yMomEC_NGjW55ljwg7vN12e4lohhihGd/view?usp=sharing |
 | Linux | narak | CVE-2021-3493 | https://drive.google.com/file/d/1OBpUaaMnZXbQWUinWp2ph-G_eRwYCRrk/view?usp=sharing |
 | Windows | metasploitable3-win2k8 | CVE-2015-8249 & CVE-2015-2342 & CVE-2009-3843 & CVE-2009-4189 & CVE-2014-3120 & CVE-2016-1209 | https://drive.google.com/file/d/11NlODP-LUggcyXOGY8hH-fV8348noEDk/view?usp=sharing |
-| Windows | WIN2008 | CVE-2017-0143 |  |
+| Windows | WIN2008 | CVE-2017-0143 | https://drive.google.com/file/d/1aEJNDfHjkGADSjY8ZAB1e2tAGDVKe8Wp/view?usp=drive_link |
 | Windows | WIN10-basic-target | none | https://drive.google.com/file/d/1D8f3XxdUeNbkA3Q8MwJmBjVON42qaBRH/view?usp=sharing |
-| Linux | Ubuntu-base | none |  |
-| Mac | MacOS-base | none |  |
-| Linux | firewall | none |  |
+| Linux | Ubuntu-base | none | https://drive.google.com/file/d/1Qwj9qHnEN6Lu-GM2Fxmzcuib0HXW0mA-/view?usp=drive_link |
+| Mac | MacOS-base | none | https://drive.google.com/file/d/1L8eseU5HyhaYJ9sPl9EVHcoMxSKg6EqS/view?usp=drive_link |
+| Linux | firewall | none | https://drive.google.com/file/d/1WYPeevEugDit_YH12G3XJqFuwi-h21nd/view?usp=drive_link|
 | Linux | Parrot | attacker | https://drive.google.com/file/d/1atAqAB4BgqT8CyRw8reu2qQ3UQuR4XBw/view?usp=sharing |
 
 
