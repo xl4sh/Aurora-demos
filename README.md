@@ -143,7 +143,7 @@ You can visit this [doc](https://github.com/LexusWang/Aurora-demos/blob/main/doc
 
 ### 2. Generate attack scripts:
 
-The logic of the script is to configure itself based on the `executor` provided in the `attack_plan.yml`. The script reads `command` and `arguments` by determining the type of `executor` specified. Additionally, it explicitly extracts `arguments` marked as `Required: true` from the `exploit` and `payload` sections of the file and outputs them directly into the executable script. This design simplifies user configuration and minimizes manual intervention. After executing this script, users will obtain a large number of ready-to-run attack scripts, streamlining the setup process and saving operational time
+The logic of the script is to configure itself based on the `executor` provided in the `attack_plan.yml`. The script reads `command` and `arguments` by determining the type of `executor` specified. Additionally, it explicitly extracts `arguments` marked as `Required: true` from the `exploit` and `payload` sections of the file and outputs them directly into the executable script. This design simplifies user configuration and minimizes manual intervention. After executing this script, users will obtain a large number of ready-to-run attack scripts, streamlining the setup process and saving operational time.
 
 ``` bash
 python generateExecution.py
@@ -189,5 +189,5 @@ Use as your own risk.
 
 ## Contact the Contributors!
 - Lingzhi Wang - [lingzhiwang2025@u.northwestern.edu](lingzhiwang2025@u.northwestern.edu)
-- Yi Jiang - 
+- Yi Jiang - [jiangyi99@zju.edu.cn](jiangyi99@zju.edu.cn)
 - Zhengkai Wang - [wangzhengkai@zju.edu.cn](wangzhengkai@zju.edu.cn)
