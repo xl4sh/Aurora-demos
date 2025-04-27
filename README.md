@@ -54,6 +54,10 @@ For more details, please refer to the [introduction to attack chains](https://gi
 
 ## Execute Attack Chains
 We show how to reproduce (execute) the generated attacks in this section.
+Please clone this repo first:
+```
+git clone https://github.com/LexusWang/Aurora-demos.git && cd Aurora-demos
+```
 
 ### 0. Dependencies
 Before beginning, you need to set up an attack machine equipped with the necessary attack tools.
@@ -62,7 +66,10 @@ Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_execu
 Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).
 Follow this guide to configure the attack machine for attack execution.
 
-We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link).
+We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link) or using this command:
+```
+python pull.py -p attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+```
 
 ### 1. Pull and deploy the attack emulation environments:
 After deploying the attack machine in Step 0, we need to set up the attack emulation environments (the victim machines).
@@ -70,23 +77,21 @@ After deploying the attack machine in Step 0, we need to set up the attack emula
 Running `pull.py` on the attack chain YML file automatically downloads and deploys the corresponding victim virtual machines. (we use VirtualBox as the default virtualization software; VMware users can manually download and deploy the virtual machines).
 
 ``` bash
-## Prohibiting duplicate deployment
+## Prohibit repeated VM downloading
 python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall #yes/no
-## Allowing duplicate downloads
-python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -r -firewall #yes/no
 ```
-- `yml_file_path`：The path of the attack chain yml file  
-- `storage_path`：The storage path of the downloaded target machine file  
-- `VBoxManage.exe_path`：The VBoxManage.exe path of VirtualBox is used for invocation  
-- `url_table_path`：The path of the Download Link mapping table (url_table.csv)  
-- `-nr`：Prohibiting duplicate deployment  
-- `-r`：Allowing duplicate downloads  
-- `-firewall`：Use pfSense firewall to isolate the attack aircraft and the target aircraft  
+- `-p #yml_file_path`：The path of the attack chain `.yml` file;  
+- `-d #storage_path`：The storage path of the downloaded VM file;  
+- `-vm #VBoxManage.exe_path`：The path of installed VirtualBox executable file (`VBoxManage.exe`);  
+- `--url_table #url_table_path`：The path of the Download Link mapping table (url_table.csv);
+- `-nr`：Prohibiting duplicate deployment;
+- `-r`：Allowing duplicate downloads;
+- `-firewall #yes/no`：Use pfSense firewall to isolate the attack host and the target host.  
 
 Notes:
 - Two download modes are supported:
-  - No duplication: If the VM image file already exists, it will prompt whether to directly proceed with deployment.
-  - Allow duplications: VM image files will be automatically renamed to avoid conflicts.
+  - No duplication (`-nr`): If the VM image file already exists, it will skip the downloading and directly proceed with deployment.
+  - Allow duplications (`-r`): VM image files will be automatically redownloaded and renamed to avoid conflicts.
 
 - During initial deployment, the VM will not start automatically, allowing users to modify configurations.
 
@@ -94,11 +99,12 @@ Notes:
 
 
 <!-- Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use  -->
-Example: If you want to deploy the emulation environments of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml", you can use
+Example: Deploy the emulation environments of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml":
 ``` bash
 python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall no
 ```
-If the VM image file has been downloaded before, it will display:<p align="center">
+If the VM image file has been downloaded before, it will display:
+<p align="center">
 
 <img src="images/No_repeat.png" alt="request" width="1200"/>
 
@@ -110,7 +116,7 @@ On the contrary, if duplication is allowed, the VM image file will be redownload
 <!-- ``` bash
 python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall yes
 ``` -->
-Besides, if you want to use firewall for isolation. Just set `-firewall` as `yes`. 
+If you want to use firewall for isolation. Just set `-firewall` as `yes`. 
 <!-- If it was not downloaded originally, firewall.ova will be automatically downloaded. If there is already a download, it will skip and ask if you want to start it. -->
 
 When using pfsense, the configuration interface is as follows:
@@ -119,10 +125,12 @@ When using pfsense, the configuration interface is as follows:
 <img src="images/pfsense.png" alt="pfsense set" width="1200"/>
 
 </p>
-Therefore, two corresponding host-only network cards need to be set up in VirtualBox in advance. Meanwhile, it is recommended to turn off the NAT network card.
+Therefore, two corresponding host-only network cards need to be set up in VirtualBox in advance.
+Meanwhile, it is recommended to turn off the NAT network card.
 
 
-Special virtual machine download：In addition to the target machine information that can attack the chain file reading, we have also prepared an attack machine (Parrot) virtual machine, as well as an Ubuntu and MacOS target machine. To download these three virtual machines, you just need to enter in -p. 
+Special virtual machine download：In addition to the target machine information that can attack the chain file reading, as well as an Ubuntu and MacOS target machine.
+To download the virtual machines, you just need to enter in -p. 
 
 For example:
 ``` bash
