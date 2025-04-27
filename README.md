@@ -61,21 +61,25 @@ git clone https://github.com/LexusWang/Aurora-demos.git && cd Aurora-demos
 ```
 
 ### 0. Dependencies
-Before beginning, you need to set up an attack machine equipped with the necessary attack tools.
-Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_executor) to execute the attack actions provided by different attack tools.
+Viewing the generated attack chains in this repo does not require any dependencies.
+To reproduce the attacks, however, you will need to install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) for deploying and managing virtual machines (we use VirtualBox as the default virtualization software; VMware users can manually download and deploy the virtual machines).
 
+Specifically, You need to know the VirtualBox executable file's installation path (e.g. `C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe` or `/usr/bin/VBoxManage`).
+
+### 1. Pull and deploy the attack emulation environments:
+#### 1.A Pull and deploy the attacker machine
+We first need to set up an attack machine equipped with the necessary attack tools.
+Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_executor) to execute the attack actions provided by different attack tools.
 Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).
-Follow this guide to configure the attack machine for attack execution.
 
 We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link) or using this command:
 ```
 python pull.py -p attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
 ```
 
-### 1. Pull and deploy the attack emulation environments:
-After deploying the attack machine in Step 0, we need to set up the attack emulation environments (the victim machines).
-
-Running `pull.py` on the attack chain YML file automatically downloads and deploys the corresponding victim virtual machines. (we use VirtualBox as the default virtualization software; VMware users can manually download and deploy the virtual machines).
+#### 1.B Pull and deploy the victim machines
+After deploying the attacker machine, we set up the victim machines.
+Running `pull.py` on the attack chain YML file automatically downloads and deploys the corresponding victim machines.
 
 ``` bash
 ## Prohibit repeated VM downloading
@@ -94,15 +98,15 @@ Notes:
   - No duplication (`-nr`): If the VM image file already exists, it will skip the downloading and directly proceed with deployment.
   - Allow duplications (`-r`): VM image files will be automatically redownloaded and renamed to avoid conflicts.
 
-- During initial deployment, the VM will not start automatically, allowing users to modify configurations.
+- During initial deployment, the VM will not start automatically, allowing users to modify configurations before first startup.
 
-- By default, two network adapters will be configured: one in NAT mode and the other in Host-only mode. Make sure the required network is configured in VirtualBox; otherwise, the VM may fail to start.
+- By default, two network adapters will be configured for each VM: one in NAT mode and the other in Host-only mode. Make sure the required network is configured in VirtualBox; otherwise, the VM may fail to start.
 
 
 <!-- Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml" corresponding to the range. You can use  -->
-Example: Deploy the emulation environments of the attack chain "examples\access_encrypted_edge_credentials\attack_plan.yml":
+Example: Deploy the emulation environments of the attack chain `attack_chains\keyboard_input_simulated-3\attack_plan.yml` on Windows:
 ``` bash
-python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall no
+python pull.py -p attack_chains\keyboard_input_simulated-3\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall no
 ```
 If the VM image file has been downloaded before, it will display:
 <p align="center">
@@ -113,32 +117,31 @@ If the VM image file has been downloaded before, it will display:
 Entering "yes" will directly start the corresponding virtual machine.
 On the contrary, if duplication is allowed, the VM image file will be redownloaded and renamed to avoid conflicts.
 
+<br>
 
 <!-- ``` bash
 python pull.py -p examples\access_encrypted_edge_credentials\attack_plan.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall yes
 ``` -->
 If you want to use firewall for isolation. Just set `-firewall` as `yes`. 
-<!-- If it was not downloaded originally, firewall.ova will be automatically downloaded. If there is already a download, it will skip and ask if you want to start it. -->
-
 When using pfsense, the configuration interface is as follows:
 <p align="center">
 
 <img src="images/pfsense.png" alt="pfsense set" width="1200"/>
 
 </p>
-Therefore, two corresponding host-only network cards need to be set up in VirtualBox in advance.
-Meanwhile, it is recommended to turn off the NAT network card.
+⚠️ Please note that if you want to deploy a firewall, two host-only network adapters need to be set up in VirtualBox.
+Meanwhile, it is recommended to turn off the NAT network adapters (otherwise all VMs can connect directly).
 
-
-Special virtual machine download：In addition to the target machine information that can attack the chain file reading, as well as an Ubuntu and MacOS target machine.
-To download the virtual machines, you just need to enter in -p. 
+<br>
+In addition to building the VM from the `attack_plan.yml` files, you can also pull and deploy the VMs in this table by using the `-p` flag. 
 
 For example:
 ``` bash
-python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+python pull.py -p macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
 ```
 
 #### Attack emulation infrastructure
+Here is an example of the deployed attack emulation environments including two attacker machines and three victim machines.
 
 <p align="center">
 
@@ -146,13 +149,19 @@ python pull.py -p attacker/Ubuntu/macos -d download -vm C:\\Program Files\\Oracl
 
 </p>
 
-Attackers: Kali,Windows 10<br> DNS_server: Debian<br> Firewall: pfSense<br> Victims：Windows 10,macOS,Ubuntu<br>
+- Attackers: Kali, Windows 10<br>
+- DNS_server: Debian<br>
+- Firewall: pfSense<br>
+- Victims：Windows 10, MacOS, Ubuntu<br>
 
 You can visit this [doc](https://github.com/LexusWang/Aurora-demos/blob/main/docs/Emulation_Infrastructure_info.md) to view more detailed information about the simulation environment.
 
 ### 2. Generate attack scripts:
+⏩ (For now users can skip this step since we have already generated the attack execution script for each attack chain.)
 
-The logic of the script is to configure itself based on the `executor` provided in the `attack_plan.yml`. The script reads `command` and `arguments` by determining the type of `executor` specified. Additionally, it explicitly extracts `arguments` marked as `Required: true` from the `exploit` and `payload` sections of the file and outputs them directly into the executable script. This design simplifies user configuration and minimizes manual intervention. After executing this script, users will obtain a large number of ready-to-run attack scripts, streamlining the setup process and saving operational time.
+Aurora provides a semi-automatic execution script in Python for each attack chain (`attack_plan.yml`).
+This design simplifies user configuration and minimizes manual intervention.
+The Python scripts are generated by calling `generateExecution.py`.
 
 ``` bash
 python generateExecution.py
@@ -166,10 +175,11 @@ python generateExecution.py
 
 ### 3. Execute attack scripts:
 
-We've generated executable attack scripts with AURORA and placed them in [here](https://github.com/LexusWang/Aurora-demos/tree/main/attack_execution_scripts) .Once your environment is configured, simply open the console, run the scripts, and follow the on-screen instructions to execute the attack.
+We've generated attack execution scripts for every attack chain in `attack_chains`.
+Once the emulation environment is deployed, simply open the terminal, run the scripts, and follow the on-screen instructions to execute the attack.
 
 ```bash
-python ../results/execution_xxxx.py
+python execution_xxxx.py
 ```
 Click the following headings for details:
 <details>
