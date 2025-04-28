@@ -201,6 +201,15 @@ This attack simulation targets Windows systems using `Sliver` and `Metasploit`. 
 ![progress](images/example2.gif)
 </details>
 
+<details>
+<summary>EXAMPLE-3_execution_active_desktop_info_known-1</summary>
+
+This attack simulation targets Windows systems using `Sliver` and `Metasploit`. It starts by creating a `Sliver` implant (malicious.exe) and tricking the victim into downloading/running it as Administrator. This grants attackers an elevated `Sliver` C2 session. Next, a `Metasploit` listener is set up to catch a reverse HTTPS payload ("meterpreter_reverse_http") deployed through `Sliver`, enabling a stealthy `Meterpreter` session. Finally, attackers use `Meterpreter` to display the current active desktop session information on compromised machines.
+
+
+![progress](images/active_desktop_info_known-1.gif)
+</details>
+
 ## Licensing
 Distributed under the MIT License. See `LICENSE.txt` for more information. The attack chains are for education, research, and testing purpose.
 The author does not condone any illegal use.
