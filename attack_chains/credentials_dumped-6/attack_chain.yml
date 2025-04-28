@@ -87,7 +87,7 @@ attack_action_sequence:
     name: Privilege Escalation
     id:
       - T1134
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
     tactics:
@@ -96,7 +96,7 @@ attack_action_sequence:
       Access Token Manipulation
     description: The `get_system` command attempts to gain SYSTEM-level privileges.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: get_system (#{hosting_process},#{config},#{SessionID})
     arguments:
       hosting_process:

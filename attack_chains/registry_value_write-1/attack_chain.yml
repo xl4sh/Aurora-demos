@@ -89,7 +89,7 @@ attack_action_sequence:
     name: Registry Modification
     id:
       - T1112
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
     tactics:
@@ -98,7 +98,7 @@ attack_action_sequence:
       Modify Registry
     description: The `registry_write` command modifies Windows registry values.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: registry_write 
         (#{hive},#{reg_path},#{key},#{hostname},#{string_value},#{byte_value},#{dword_value},#{qword_value},#{reg_type},#{SessionID})
     arguments:

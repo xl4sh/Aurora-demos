@@ -95,11 +95,11 @@ async def main():
     confirm_action()
 
 
-    # Meterpreter Session Selection
-    console.print("[bold cyan]\n[Meterpreter Executor] Session Selection[/]")
-    metasploit_sessionid = metasploit_executor.select_meterpreter_session()
+    # Sliver-session selection
+    console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
+    sliver_sessionid = await sliver_executor.select_sessions()
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: tcp[/]")
     console.print(f"  Description: Show TCP connections (true/false)")
     default_val = "True"
@@ -110,7 +110,7 @@ async def main():
         raise ValueError("Missing required parameter: tcp")
     user_params["tcp"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: udp[/]")
     console.print(f"  Description: Show UDP connections (true/false)")
     default_val = "True"
@@ -121,7 +121,7 @@ async def main():
         raise ValueError("Missing required parameter: udp")
     user_params["udp"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv4[/]")
     console.print(f"  Description: Show IPv4 connections (true/false)")
     default_val = "True"
@@ -132,7 +132,7 @@ async def main():
         raise ValueError("Missing required parameter: ipv4")
     user_params["ipv4"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv6[/]")
     console.print(f"  Description: Show IPv6 connections (true/false)")
     default_val = "True"
@@ -143,7 +143,7 @@ async def main():
         raise ValueError("Missing required parameter: ipv6")
     user_params["ipv6"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: listening[/]")
     console.print(f"  Description: Show listening ports (true/false)")
     default_val = "True"
@@ -154,22 +154,13 @@ async def main():
         raise ValueError("Missing required parameter: listening")
     user_params["listening"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: SessionID[/]")
-    console.print(f"  Description: The session ID of the active Sliver connection.")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for SessionID [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: SessionID")
-    user_params["SessionID"] = user_input
+    user_params["SessionID"] = sliver_sessionid
 
-    # Meterpreter command execution
-    console.print(f"[bold cyan]\n[Meterpreter Executor] Executing: netstat[/]")
+    # Sliver command execution
+    console.print(f"[bold cyan]\n[Sliver Executor] Executing: netstat[/]")
     confirm_action()
     try:
-        metasploit_executor.netstat(user_params["tcp"], user_params["udp"], user_params["ipv4"], user_params["ipv6"], user_params["listening"], user_params["SessionID"])
+        await sliver_executor.netstat(user_params["tcp"], user_params["udp"], user_params["ipv4"], user_params["ipv6"], user_params["listening"], user_params["SessionID"])
     except Exception as e:
         console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
         raise

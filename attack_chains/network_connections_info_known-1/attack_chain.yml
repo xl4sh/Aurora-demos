@@ -89,7 +89,7 @@ attack_action_sequence:
     name: Network Connection Enumeration
     id:
       - T1049
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
       - linux
@@ -99,7 +99,7 @@ attack_action_sequence:
       System Network Connections Discovery
     description: The `netstat` command enumerates active network connections.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: netstat(#{tcp},#{udp},#{ipv4},#{ipv6},#{listening},#{SessionID})
     arguments:
       tcp:

@@ -195,6 +195,35 @@ This attack simulation targets Windows systems using `Sliver` and `Metasploit`. 
 ![progress](images/example2.gif)
 </details>
 
+<details>
+<summary>EXAMPLE-3_execution_active_desktop_info_known-1</summary>
+
+This attack simulation targets Windows systems using `Sliver` and `Metasploit`. It starts by creating a `Sliver` implant (malicious.exe) and tricking the victim into downloading/running it as Administrator. This grants attackers an elevated `Sliver` C2 session. Next, a `Metasploit` listener is set up to catch a reverse HTTPS payload ("meterpreter_reverse_http") deployed through `Sliver`, enabling a stealthy `Meterpreter` session. Finally, attackers use `Meterpreter` to display the current active desktop session information on compromised machines.
+
+
+![progress](images/active_desktop_info_known-1.gif)
+</details>
+
+</details>
+
+<details>
+<summary>EXAMPLE-4_execution_arp_info_known-1</summary>
+
+This attack simulation targets Windows systems using `Sliver` and `Metasploit`. It starts by creating a `Sliver` implant (malicious.exe) and tricking the victim into downloading/running it as Administrator. This grants attackers an elevated `Sliver` C2 session. Next, a `Metasploit` listener is set up to catch a reverse HTTPS payload ("meterpreter_reverse_http") deployed through `Sliver`, enabling a stealthy `Meterpreter` session. Finally, attackers use `Meterpreter` to displays the target's ARP cache.
+
+
+![progress](images/arp_info_known-1.gif)
+</details>
+
+<details>
+<summary>EXAMPLE-5_bind_named_pipe_listener-1</summary>
+
+This attack simulation targets Linux systems using `Metasploit`. It exploits the `CVE-2020-25213` vulnerability of the target. Use the exploit module: `multi/http/wp_file_manager_rce` and the payload: `php/bind_php`. Finally, a shell session is established.
+
+
+![progress](images/bind_named_pipe_listener-1.gif)
+</details>
+
 ## Licensing
 Distributed under the MIT License. See `LICENSE.txt` for more information. The attack chains are for education, research, and testing purpose.
 The author does not condone any illegal use.

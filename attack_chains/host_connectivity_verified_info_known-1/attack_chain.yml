@@ -89,7 +89,7 @@ attack_action_sequence:
     name: Host Availability Check
     id:
       - T1018
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
       - linux
@@ -99,7 +99,7 @@ attack_action_sequence:
       Remote System Discovery
     description: The `ping` command tests network connectivity to the target host.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: ping (#{SessionID})
     arguments:
       SessionID:

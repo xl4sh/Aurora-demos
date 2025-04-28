@@ -87,7 +87,7 @@ attack_action_sequence:
     name: Network Interface Discovery
     id:
       - T1040
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
       - linux
@@ -97,7 +97,7 @@ attack_action_sequence:
       Network Service Discovery
     description: The `ifconfig` command displays network interface configurations.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: ifconfig(#{SessionID})
     arguments:
       SessionID:

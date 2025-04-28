@@ -95,11 +95,11 @@ async def main():
     confirm_action()
 
 
-    # Meterpreter Session Selection
-    console.print("[bold cyan]\n[Meterpreter Executor] Session Selection[/]")
-    metasploit_sessionid = metasploit_executor.select_meterpreter_session()
+    # Sliver-session selection
+    console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
+    sliver_sessionid = await sliver_executor.select_sessions()
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: hosting_process[/]")
     console.print(f"  Description: Target process ID or name for privilege escalation")
     default_val = ""
@@ -110,7 +110,7 @@ async def main():
         raise ValueError("Missing required parameter: hosting_process")
     user_params["hosting_process"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: config[/]")
     console.print(f"  Description: Configuration options for escalation method")
     default_val = "Service"
@@ -121,29 +121,16 @@ async def main():
         raise ValueError("Missing required parameter: config")
     user_params["config"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: SessionID[/]")
-    console.print(f"  Description: The session ID of the active Sliver connection.")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for SessionID [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: SessionID")
-    user_params["SessionID"] = user_input
+    user_params["SessionID"] = sliver_sessionid
 
-    # Meterpreter command execution
-    console.print(f"[bold cyan]\n[Meterpreter Executor] Executing: get_system[/]")
+    # Sliver command execution
+    console.print(f"[bold cyan]\n[Sliver Executor] Executing: get_system[/]")
     confirm_action()
     try:
-        metasploit_executor.get_system(user_params["hosting_process"], user_params["config"], user_params["SessionID"])
+        await sliver_executor.get_system(user_params["hosting_process"], user_params["config"], user_params["SessionID"])
     except Exception as e:
         console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
         raise
-
-    # Sliver-session selection
-    console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
-    sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
     commands = """

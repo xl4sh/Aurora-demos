@@ -95,11 +95,11 @@ async def main():
     confirm_action()
 
 
-    # Meterpreter Session Selection
-    console.print("[bold cyan]\n[Meterpreter Executor] Session Selection[/]")
-    metasploit_sessionid = metasploit_executor.select_meterpreter_session()
+    # Sliver-session selection
+    console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
+    sliver_sessionid = await sliver_executor.select_sessions()
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: hive[/]")
     console.print(f"  Description: Registry hive (HKLM/HKCU/HKU)")
     default_val = ""
@@ -110,7 +110,7 @@ async def main():
         raise ValueError("Missing required parameter: hive")
     user_params["hive"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: reg_path[/]")
     console.print(f"  Description: Path to registry key")
     default_val = ""
@@ -121,7 +121,7 @@ async def main():
         raise ValueError("Missing required parameter: reg_path")
     user_params["reg_path"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: key[/]")
     console.print(f"  Description: Specific value name to read")
     default_val = ""
@@ -132,7 +132,7 @@ async def main():
         raise ValueError("Missing required parameter: key")
     user_params["key"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: hostname[/]")
     console.print(f"  Description: Target hostname for remote registry access")
     default_val = ""
@@ -143,22 +143,13 @@ async def main():
         raise ValueError("Missing required parameter: hostname")
     user_params["hostname"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: SessionID[/]")
-    console.print(f"  Description: The session ID of the active Sliver connection.")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for SessionID [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: SessionID")
-    user_params["SessionID"] = user_input
+    user_params["SessionID"] = sliver_sessionid
 
-    # Meterpreter command execution
-    console.print(f"[bold cyan]\n[Meterpreter Executor] Executing: registry_read[/]")
+    # Sliver command execution
+    console.print(f"[bold cyan]\n[Sliver Executor] Executing: registry_read[/]")
     confirm_action()
     try:
-        metasploit_executor.registry_read(user_params["hive"], user_params["reg_path"], user_params["key"], user_params["hostname"], user_params["SessionID"])
+        await sliver_executor.registry_read(user_params["hive"], user_params["reg_path"], user_params["key"], user_params["hostname"], user_params["SessionID"])
     except Exception as e:
         console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
         raise

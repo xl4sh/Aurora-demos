@@ -89,7 +89,7 @@ attack_action_sequence:
     name: File Download Operation
     id:
       - T1020
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
       - linux
@@ -100,7 +100,7 @@ attack_action_sequence:
     description: The `download` command transfers files from target system to local
       machine.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: download (#{remote_path},#{recurse},#{output_dir},#{SessionID})
     arguments:
       remote_path:

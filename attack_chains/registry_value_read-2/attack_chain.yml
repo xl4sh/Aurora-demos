@@ -87,7 +87,7 @@ attack_action_sequence:
     name: Registry Key Read Operation
     id:
       - T1012
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
     tactics:
@@ -96,7 +96,7 @@ attack_action_sequence:
       Query Registry
     description: The `registry_read` command retrieves values from Windows registry.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: registry_read (#{hive},#{reg_path},#{key},#{hostname},#{SessionID})
     arguments:
       hive:

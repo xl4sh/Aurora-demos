@@ -95,11 +95,11 @@ async def main():
     confirm_action()
 
 
-    # Meterpreter Session Selection
-    console.print("[bold cyan]\n[Meterpreter Executor] Session Selection[/]")
-    metasploit_sessionid = metasploit_executor.select_meterpreter_session()
+    # Sliver-session selection
+    console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
+    sliver_sessionid = await sliver_executor.select_sessions()
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: hive[/]")
     console.print(f"  Description: Registry hive (HKLM/HKCU/HKU)")
     default_val = ""
@@ -110,7 +110,7 @@ async def main():
         raise ValueError("Missing required parameter: hive")
     user_params["hive"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: reg_path[/]")
     console.print(f"  Description: Path to registry key")
     default_val = ""
@@ -121,7 +121,7 @@ async def main():
         raise ValueError("Missing required parameter: reg_path")
     user_params["reg_path"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: key[/]")
     console.print(f"  Description: Value name to modify")
     default_val = ""
@@ -132,7 +132,7 @@ async def main():
         raise ValueError("Missing required parameter: key")
     user_params["key"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: hostname[/]")
     console.print(f"  Description: Target hostname for remote registry access")
     default_val = ""
@@ -143,7 +143,7 @@ async def main():
         raise ValueError("Missing required parameter: hostname")
     user_params["hostname"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: string_value[/]")
     console.print(f"  Description: String value data")
     default_val = ""
@@ -154,7 +154,7 @@ async def main():
         raise ValueError("Missing required parameter: string_value")
     user_params["string_value"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: byte_value[/]")
     console.print(f"  Description: Binary value data (hex format)")
     default_val = ""
@@ -165,7 +165,7 @@ async def main():
         raise ValueError("Missing required parameter: byte_value")
     user_params["byte_value"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: dword_value[/]")
     console.print(f"  Description: 32-bit integer value")
     default_val = ""
@@ -176,7 +176,7 @@ async def main():
         raise ValueError("Missing required parameter: dword_value")
     user_params["dword_value"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: qword_value[/]")
     console.print(f"  Description: 64-bit integer value")
     default_val = ""
@@ -187,7 +187,7 @@ async def main():
         raise ValueError("Missing required parameter: qword_value")
     user_params["qword_value"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
+    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 4 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: reg_type[/]")
     console.print(f"  Description: Registry value type (REG_SZ/REG_BINARY/REG_DWORD/REG_QWORD)")
     default_val = ""
@@ -198,22 +198,13 @@ async def main():
         raise ValueError("Missing required parameter: reg_type")
     user_params["reg_type"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Meterpreter Executor] Step 4 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: SessionID[/]")
-    console.print(f"  Description: The session ID of the active Sliver connection.")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for SessionID [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: SessionID")
-    user_params["SessionID"] = user_input
+    user_params["SessionID"] = sliver_sessionid
 
-    # Meterpreter command execution
-    console.print(f"[bold cyan]\n[Meterpreter Executor] Executing: registry_write[/]")
+    # Sliver command execution
+    console.print(f"[bold cyan]\n[Sliver Executor] Executing: registry_write[/]")
     confirm_action()
     try:
-        metasploit_executor.registry_write(user_params["hive"], user_params["reg_path"], user_params["key"], user_params["hostname"], user_params["string_value"], user_params["byte_value"], user_params["dword_value"], user_params["qword_value"], user_params["reg_type"], user_params["SessionID"])
+        await sliver_executor.registry_write(user_params["hive"], user_params["reg_path"], user_params["key"], user_params["hostname"], user_params["string_value"], user_params["byte_value"], user_params["dword_value"], user_params["qword_value"], user_params["reg_type"], user_params["SessionID"])
     except Exception as e:
         console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
         raise
