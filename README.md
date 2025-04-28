@@ -168,14 +168,15 @@ python generateExecution.py
 </p>
 
 ### 3. Execute attack scripts:
+We've generated a Python attack execution script for every attack chain in `attack_chains`.
+Once the emulation environment is deployed, follow the steps below to execute the attacks:
 
-We've generated attack execution scripts for every attack chain in `attack_chains`.
-Once the emulation environment is deployed, simply open the terminal, run the scripts, and follow the on-screen instructions to execute the attack.
+1. Move Python attack execution scripts to the attacker machine;
+2. Open the terminal, run the scripts on the attacker machine;
+3. Follow the guidance and instructions from the terminal, set the parameters (e.g. IP address of the related VMs);
+4. Some steps may need human intervention, please follow the guidance and instructions from the terminal.
 
-```bash
-python execution_xxxx.py
-```
-Click the following headings for details:
+Click the following headings to watch some demos:
 <details>
 <summary>EXAMPLE-1_execution_keyboard_input_simulated-3</summary>
 
