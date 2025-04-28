@@ -224,7 +224,7 @@ This attack simulation targets Windows systems using `Sliver` and `Metasploit`. 
 <details>
 <summary>EXAMPLE-5_bind_named_pipe_listener-1</summary>
 
-This attack simulation targets Linux systems using `Metasploit`. It exploits the `CVE-2020-25213` vulnerability of the target. Use the exploit module: `multi/http/wp_file_manager_rce` and the payload: `php/bind_php`. Finally, spawn a command shell to the attack machine.
+This attack simulation targets Linux systems using `Metasploit`. It exploits the `CVE-2020-25213` vulnerability of the target. Use the exploit module: `multi/http/wp_file_manager_rce` and the payload: `php/bind_php`. Finally, a shell session is established.
 
 
 ![progress](images/bind_named_pipe_listener-1.gif)
