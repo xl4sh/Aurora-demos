@@ -33,17 +33,11 @@ Our paper: [From Sands to Mansions: Towards Automated Cyberattack Emulation with
 
 </p>
 
-
 Aurora’s architecture comprises five components:
-
 - `Attack Tool Analysis`: Converts third-party tool documentation into structured attack actions using rule-based and LLM-assisted predicate extraction.
-
 - `Attack Report Analysis`: Extracts Tactics, Techniques, and Procedures (TTPs) from CTI reports via LLMs to guide attack planning.
-
 - `Attack Planning`: Uses PDDL and reward functions (aligned with CTI-derived TTPs) to generate attack chains.
-
 - `Attack Environment Builder`: Deploys pre-configured virtual machines to replicate vulnerable environments.
-
 - `Attack Execution`: Semi-automatically runs attack scripts and collects traces for dataset construction.
 
 ## Attack Chains
@@ -64,7 +58,7 @@ git clone https://github.com/LexusWang/Aurora-demos.git && cd Aurora-demos
 Viewing the generated attack chains in this repo does not require any dependencies.
 To reproduce the attacks, however, you will need to install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) for deploying and managing virtual machines (we use VirtualBox as the default virtualization software; VMware users can manually download and deploy the virtual machines).
 
-Specifically, You need to know the VirtualBox executable file's installation path (e.g. `C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe` or `/usr/bin/VBoxManage`).
+Specifically, You need to know the path of the command-line interface (CLI) tool for VirtualBox (e.g. `C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe` or `/usr/bin/VBoxManage`).
 
 ### 1. Pull and deploy the attack emulation environments:
 #### 1.A Pull and deploy the attacker machine
