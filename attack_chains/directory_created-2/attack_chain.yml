@@ -87,7 +87,7 @@ attack_action_sequence:
     name: Create Directory
     id:
       - T1106
-    source: Metasploit
+    source: Sliver
     supported_platforms:
       - windows
       - linux
@@ -97,7 +97,7 @@ attack_action_sequence:
       File System Permissions Modification
     description: The `mkdir` command creates a new directory on the target system.
     execution:
-      executor: Meterpreter Executor
+      executor: Sliver Executor
       command: mkdir (#{remote_path},#{SessionID})
     arguments:
       remote_path:
