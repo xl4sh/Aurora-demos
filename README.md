@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/dynamic/json?color=blue&label=Release&query=tag_name&url=https%5B%5D)](https:%5B%5D)
+<!-- [![Release](https://img.shields.io/badge/dynamic/json?color=blue&label=Release&query=tag_name&url=https%5B%5D)](https:%5B%5D) -->
 ![License](https://img.shields.io/github/license/LexusWang/Aurora-demos)
 
 # Aurora-demos: Automated Cyberattack Emulation
