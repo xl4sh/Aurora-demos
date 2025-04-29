@@ -52,7 +52,7 @@ For more details, please refer to the [introduction to attack chains](https://gi
 ## Execute Attack Chains
 We show how to reproduce (execute) the generated attacks in this section.
 Please clone this repo first:
-```
+```bash
 git clone https://github.com/LexusWang/Aurora-demos.git && cd Aurora-demos
 ```
 
@@ -171,7 +171,7 @@ python aurora/executor/generateExecution.py --input #YAMLFilePath --output #Outp
 - `#YAMLFilePath` : Input source (directory containing `attack_chain.yml` files or specific YAML configuration)
 - `#OutputPath` : Target directory for generated executable attack scripts
 
-```
+```bash
 # Processes all attack plans in the publish-2.0 directory and outputs generated scripts to results/scripts
 python generateExecution.py --input publish-2.0 --output results/scripts
 # Generates execution scripts only for the attack plan in the subdirectory
