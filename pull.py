@@ -174,9 +174,14 @@ def create_vm_from_vmdk(vmdk_path, vm_name, vm_path):
     subprocess.run([vm_path, "storagectl", vm_name, "--name", "SATA", "--add", "sata", "--controller", "IntelAhci"])
     subprocess.run([vm_path, "storageattach", vm_name, "--storagectl", "SATA", "--port", "0", "--device", "0", "--type", "hdd", "--medium", vm_disk_path])
     subprocess.run([vm_path, "modifyvm", vm_name, "--nic1", "nat"])
-    subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly"])
+    result = subprocess.run([vm_path, "list", "hostonlyifs"], capture_output=True, text=True)
+    if "Name:" in result.stdout:
+        first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
+    else:
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
 
-    set_vm_resources(vm_name, vm_path)  
+    set_vm_resources(vm_name, vm_path)
 
 def create_vm_from_iso(iso_path, vm_name, vm_path):
     vm_dir = Path(f"C:/VMs/{vm_name}")
@@ -186,18 +191,28 @@ def create_vm_from_iso(iso_path, vm_name, vm_path):
     subprocess.run([vm_path, "storagectl", vm_name, "--name", "IDE", "--add", "ide"])
     subprocess.run([vm_path, "storageattach", vm_name, "--storagectl", "IDE", "--port", "0", "--device", "0", "--type", "dvddrive", "--medium", iso_path])
     subprocess.run([vm_path, "modifyvm", vm_name, "--nic1", "nat"])
-    subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly"])
+    result = subprocess.run([vm_path, "list", "hostonlyifs"], capture_output=True, text=True)
+    if "Name:" in result.stdout:
+        first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
+    else:
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
 
-    set_vm_resources(vm_name, vm_path) 
+    set_vm_resources(vm_name, vm_path)
 
 def import_ova_ovf(file_path, vm_path):
     vm_name = os.path.splitext(os.path.basename(file_path))[0]
 
     subprocess.run([vm_path, "import", file_path, "--vsys", "0", "--vmname", vm_name])
     subprocess.run([vm_path, "modifyvm", vm_name, "--nic1", "nat"])
-    subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly"])
+    result = subprocess.run([vm_path, "list", "hostonlyifs"], capture_output=True, text=True)
+    if "Name:" in result.stdout:
+        first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
+    else:
+        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
 
-    set_vm_resources(vm_name, vm_path)  
+    set_vm_resources(vm_name, vm_path)
 
 def main():
     parser = argparse.ArgumentParser(description="Automate the download and deployment of multiple target machines.")
@@ -238,7 +253,7 @@ def main():
                         os.path.join(download_dir, base_name)
                     ]
                     exists = any(os.path.exists(p) for p in potential)
-                    if args.no_repeat and exists:
+                    if exists:
                         print(f"[Skipping] firewall VM already exists.")
                         choice = input("Do you want to start the existing firewall VM? (yes/no): ").strip().lower()
                         if choice == 'yes':
