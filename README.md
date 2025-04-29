@@ -10,6 +10,18 @@ Using LLM capabilities, it leverages external attack tools and threat intelligen
 
 We are preparing publishing the source code of Aurora.
 
+If you use the attack chains in this repo, please cite our paper. Thanks! ☺️
+```
+@article{wang2024sands,
+  title={From Sands to Mansions: Towards Automated Cyberattack Emulation with Classical Planning and Large Language Models},
+  author={Wang, Lingzhi and Li, Zhenyuan and Jiang, Yi and Wang, Zhengkai and Guo, Zonghan and Wang, Jiahui and Wei, Yangyang and Shen, Xiangmin and Ruan, Wei and Chen, Yan},
+  journal={arXiv preprint arXiv:2407.16928},
+  year={2024},
+  archivePrefix={arXiv},
+  url={https://arxiv.org/abs/2407.16928}
+}
+```
+
 ## 🎉 Introduction
 
 <p><a href="https://arxiv.org/pdf/2407.16928"><img src="images/First_page.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
