@@ -168,9 +168,9 @@ python aurora/executor/generateExecution.py --input #YAMLFilePath --output #Outp
 ```
 # Processes all attack plans in the publish-2.0 directory and outputs generated scripts to results/scripts
 python generateExecution.py --input publish-2.0 --output results/scripts
-# Generates execution scripts only for the attack plan in the active_desktop_info_known-1 subdirectory of publish-2.0, saving results to results/scripts
+# Generates execution scripts only for the attack plan in the subdirectory
 python generateExecution.py --input publish-2.0/active_desktop_info_known-1 --output results/scripts
-# Directly processes the single attack_chain.yml file under active_desktop_info_known-1 and outputs its script to a dedicated subdirectory in results/scripts
+# Directly processes the single attack_chain.yml file under the subdirectory
 python generateExecution.py --input publish-2.0/active_desktop_info_known-1/attack_chain.yml --output results/scripts
 ```
 
