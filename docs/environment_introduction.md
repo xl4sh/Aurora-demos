@@ -19,8 +19,8 @@
 | Windows | WIN2008 | CVE-2017-0143 | https://drive.google.com/file/d/1aEJNDfHjkGADSjY8ZAB1e2tAGDVKe8Wp/view?usp=drive_link |
 | Windows | WIN10-basic-target | none | https://drive.google.com/file/d/1D8f3XxdUeNbkA3Q8MwJmBjVON42qaBRH/view?usp=sharing |
 | Linux | Ubuntu-base | none | https://drive.google.com/file/d/1Qwj9qHnEN6Lu-GM2Fxmzcuib0HXW0mA-/view?usp=drive_link |
-| Mac | MacOS-base | none | https://drive.google.com/file/d/1L8eseU5HyhaYJ9sPl9EVHcoMxSKg6EqS/view?usp=drive_link |
-| Linux | firewall | none | https://drive.google.com/file/d/1WYPeevEugDit_YH12G3XJqFuwi-h21nd/view?usp=drive_link|
+| Mac | MacOS-base | none | https://drive.google.com/file/d/1HXDnXxBhyERsRNe-0Hkv3gMsJclo4zJX/view?usp=sharing	 |
+| Linux | firewall | none | https://drive.google.com/file/d/1c45DjG2GJXr312Lgb81WaymIMHocusCU/view?usp=drive_link	|
 | Linux | Aurora-executor-kali.ova | attacker | https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link |
 
 
