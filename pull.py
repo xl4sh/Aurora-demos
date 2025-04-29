@@ -219,6 +219,7 @@ def main():
     parser.add_argument('-firewall', choices=['yes', 'no'], default='no',
                         help="Whether to deploy the firewall VM first (yes/no)")
     parser.add_argument('-p', '--plan', help="Path to attack plan YAML file or 'attacker'")
+    parser.add_argument('-k', '--searchkey', help="Directly specify a keyword to match 'search_key' column in URL table")
     parser.add_argument('-d', '--download_dir', default='downloads', help="Storage path")
     parser.add_argument('-vm', '--vm_path', default='C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', help="VirtualBox path")
     parser.add_argument('--url_table', default='url_table.csv', help="Path to the URL table CSV file")
@@ -262,7 +263,6 @@ def main():
                             subprocess.run([vm_path, 'startvm', vm_name, '--type', 'gui'])
                         continue
 
-                    # download and process
                     file_path = download_file(download_url, download_dir, url_table_path)
                     if not file_path:
                         print("Firewall download failed, skipping firewall VM.")
@@ -274,41 +274,66 @@ def main():
                         handle_downloaded_file(file_path, os_type, download_dir, vm_path)
                     break
 
-    # Attacker/Ubuntu/macos or plan handling
     targets = []
-    if args.plan == 'attacker':
-        print("\n[Attacker Mode] Handling attacker VM setup...")
-        url, os_type, fname = get_download_url_and_os('attacker', url_table_path)
-        if url and os_type:
-            targets.append(('attacker', os_type, url, fname))
-    elif args.plan == 'Ubuntu':
-        print("\n[Ubuntu Mode] Handling Ubuntu VM setup...")
-        url, os_type, fname = get_download_url_and_os('Ubuntu', url_table_path)
-        if url and os_type:
-            targets.append(('Ubuntu', os_type, url, fname))
-    elif args.plan == 'macos':
-        print("\n[macOS Mode] Handling macOS VM setup...")
-        url, os_type, fname = get_download_url_and_os('macos', url_table_path)
-        if url and os_type:
-            targets.append(('macos', os_type, url, fname))
+
+    # Keyword mode
+    if args.searchkey:
+        print(f"\n[Keyword Mode] Searching for keyword '{args.searchkey}' in URL table...")
+        with open(url_table_path, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if len(row) >= 3 and row[1].strip().lower() == args.searchkey.strip().lower():
+                    os_type = row[0].strip()
+                    download_url = row[2].strip()
+                    file_name = row[3].strip() if len(row) >= 4 and row[3].strip() else args.searchkey
+                    targets.append((args.searchkey, os_type, download_url, file_name))
+                    break
+            else:
+                print(f"No match found for keyword '{args.searchkey}' in URL table.")
+                return
+
+    # Plan mode
     elif args.plan:
         print(f"\nLoading plan from {args.plan}...")
         with open(args.plan, 'r', encoding='utf-8') as f:
             plan_data = yaml.safe_load(f)
-        cve_list = plan_data.get('testbed_requirement', {}).get('CVE', []) or ['none']
-        for cve in cve_list:
-            url, os_type, fname = get_download_url_and_os(cve, url_table_path)
-            if url and os_type:
-                targets.append((cve, os_type, url, fname))
-            else:
-                print(f"Skipping CVE {cve}, no matching entry found in table.")
-    else:
-        print("No plan file provided. Please use -p to specify a plan YAML file or use 'attacker'.")
-        return
+        testbed = plan_data.get('testbed_requirement', {})
+        cve_list = testbed.get('CVE', [])
+        os_list = testbed.get('OS', [])
 
-    # Process all targets
+        # get os_value
+        if not cve_list:
+            os_value = ""
+            if isinstance(os_list, list) and os_list:
+                os_value = os_list[0].lower()
+            elif isinstance(os_list, str):
+                os_value = os_list.lower()
+            else:
+                os_value = 'windows'  # fallback
+
+            #  OS -> search_key
+            os_mapping = {
+                'linux': 'Ubuntu-target',
+                'windows': 'Windows-target',
+                'mac': 'MacOS-target'
+            }
+            search_key = os_mapping.get(os_value, 'Windows-target')
+            url, os_type, fname = get_download_url_and_os(search_key, url_table_path)
+            if url and os_type:
+                targets.append((search_key, os_type, url, fname))
+            else:
+                print(f"[Error] No download entry for default OS mapping '{search_key}'")
+        else:
+            for cve in cve_list:
+                url, os_type, fname = get_download_url_and_os(cve, url_table_path)
+                if url and os_type:
+                    targets.append((cve, os_type, url, fname))
+                else:
+                    print(f"[Skipping] CVE {cve} not found in URL table.")
+
+    # Process targets
     for idx, (cve, os_type, download_url, custom_file_name) in enumerate(targets, 1):
-        print(f"\nProcessing target {idx}: CVE {cve} ({os_type})...")
+        print(f"\nProcessing target {idx}: {cve} ({os_type})...")
         base_name = os.path.splitext(custom_file_name)[0]
         potential = [
             os.path.join(download_dir, f"{base_name}.ova"),
@@ -323,11 +348,9 @@ def main():
             print(f"[Skipping] {cve} already exists.")
             user_input = input("Do you want to directly start the existing VM? (yes/no): ").strip().lower()
             if user_input == "yes":
-                # start existing VM
                 existing_file = next(path for path in potential if os.path.exists(path))
                 vm_name = os.path.splitext(os.path.basename(existing_file))[0]
                 print(f"Launching existing VM '{vm_name}' from {existing_file}...")
-
                 try:
                     subprocess.run([vm_path, "startvm", vm_name, "--type", "gui"], check=True)
                     print(f"VM '{vm_name}' started successfully.")
@@ -339,7 +362,7 @@ def main():
 
         file_path = download_file(download_url, download_dir, url_table_path)
         if not file_path:
-            print(f"Download failed for CVE {cve}, skipping.")
+            print(f"Download failed for {cve}, skipping.")
             continue
         downloaded_files[(cve, os_type)] = file_path
         if file_path.endswith(('.zip', '.tar.gz', '.7z')):
