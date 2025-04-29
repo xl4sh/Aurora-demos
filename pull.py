@@ -30,7 +30,7 @@ def download_file(url, dest_dir, csv_file):
     try:
         file_id = url.split('/d/')[1].split('/')[0]
     except IndexError:
-        print(f"[Error] 无法从 URL 提取文件 ID: {url}")
+        print(f"[Error] can not get url ID: {url}")
         return None
 
     file_name = file_id
