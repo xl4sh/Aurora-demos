@@ -245,7 +245,9 @@ This attack simulation targets Linux systems using `Metasploit`. It exploits the
 </details>
 
 ## Licensing
-Distributed under the MIT License. See `LICENSE` for more information. The attack chains are for education, research, and testing purpose.
+Distributed under the Apache License 2.0 License.
+See `LICENSE` for more information.
+The attack chains are for education, research, and testing purpose.
 The author does not condone any illegal use.
 Use as your own risk.
 
