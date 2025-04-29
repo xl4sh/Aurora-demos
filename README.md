@@ -68,7 +68,7 @@ Detailed configuration steps are documented in [Guide](./docs/attacker_environme
 
 We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link) or using this command:
 ```
-python pull.py -p attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+python pull.py -k attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
 ```
 
 #### 1.B Pull and deploy the victim machines
@@ -86,6 +86,7 @@ python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url
 - `-nr`：Prohibiting duplicate deployment;
 - `-r`：Allowing duplicate downloads;
 - `-firewall #yes/no`：Use pfSense firewall to isolate the attack host and the target host.  
+- `-k #search_key`：Instead of using the `.yml` file of the attack chain, directly search for the target machine or attack machine using `search_key` 
 
 Notes:
 - Two download modes are supported:
@@ -127,11 +128,11 @@ When using pfsense, the configuration interface is as follows:
 Meanwhile, it is recommended to turn off the NAT network adapters (otherwise all VMs can connect directly).
 
 <br>
-In addition to building the VM from the `attack_plan.yml` files, you can also pull and deploy the VMs in this table by using the `-p` flag. 
+In addition to building the VM from the `attack_plan.yml` files, you can also pull and deploy the VMs in this table by using the `-k` flag. It will search for the corresponding virtual machine through search_key.
 
 For example:
 ``` bash
-python pull.py -p macos -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+python pull.py -k MacOS -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
 ```
 
 #### Attack emulation infrastructure
