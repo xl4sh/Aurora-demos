@@ -179,7 +179,7 @@ def create_vm_from_vmdk(vmdk_path, vm_name, vm_path):
         first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
         subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
     else:
-        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
+        print(f"[Info] No Host-Only network found, skipping NIC2 setup.")
 
     set_vm_resources(vm_name, vm_path)
 
@@ -196,7 +196,7 @@ def create_vm_from_iso(iso_path, vm_name, vm_path):
         first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
         subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
     else:
-        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
+        print(f"[Info] No Host-Only network found, skipping NIC2 setup.")
 
     set_vm_resources(vm_name, vm_path)
 
@@ -210,7 +210,7 @@ def import_ova_ovf(file_path, vm_path):
         first_hostonly = result.stdout.split("Name:")[1].split("\n")[0].strip()
         subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "hostonly", "--hostonlyadapter2", first_hostonly])
     else:
-        subprocess.run([vm_path, "modifyvm", vm_name, "--nic2", "nat"])
+        print(f"[Info] No Host-Only network found, skipping NIC2 setup.")
 
     set_vm_resources(vm_name, vm_path)
 
