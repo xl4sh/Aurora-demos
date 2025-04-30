@@ -21,7 +21,7 @@ $ ./sliver-server
 
 sliver > new-operator --name zer0cool --lhost localhost --lport 34567 --save ./zer0cool.cfg
 [*] Generating new client certificate, please wait ...
-[*] Saved new client config to: /Users/zer0cool/zer0cool.cfg
+[*] Saved new client config to: /user/Downloads/zer0cool.cfg
 
 sliver > multiplayer --lport 34567
 [*] Multiplayer mode enabled!
