@@ -78,7 +78,12 @@ Specifically, You need to know the path of the command-line interface (CLI) tool
 #### 1.A Pull and deploy the attacker machine
 We first need to set up an attack machine equipped with the necessary attack tools.
 Specifically, we use [Attack Executor](https://github.com/LexusWang/attack_executor) to execute the attack actions provided by different attack tools.
-Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).
+Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).If you find the step-by-step configuration cumbersome, you can use our provided [script](https://github.com/LexusWang/Aurora-demos/blob/main/docs/auto_deploy.sh) to install the environment required to execute the script with a single click.
+
+```bash
+# Kali attacker
+source auto_deploy.sh
+```
 
 We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link) or using this command:
 ```bash
