@@ -85,7 +85,7 @@ Detailed configuration steps are documented in [Guide](./docs/attacker_environme
 source auto_deploy.sh
 ```
 
-We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link) or using this command:
+We’ve also prepared pre-configured attack machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1LH237s_uxqT50KrQeBPlTo7rok1m7Q7O/view?usp=drive_link) or using this command:
 ```bash
 # Windows
 python pull.py -k attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
