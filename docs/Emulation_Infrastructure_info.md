@@ -5,7 +5,7 @@
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
 | Kali   | 10.0.0.101 | 2025.1  | kali/kali |
-| Windows10   | 10.0.0.102 | Enterprise 22H2 | attacker/123456 |
+| Parrot OS   | 10.0.0.102 | 6.3 | --- |
 
 1. **Kali Attack Platform**: the Kali system has the Apache service enabled to simulate a phishing website attack. On the desktop, there are implants generated using the Sliver command for both Windows and Linux, which can be directly used for testing.
     - C2 Framework
@@ -16,7 +16,7 @@
 
 Running the `msfconsole` command in the Kali terminal allows you to use the Metasploit framework, and running `sliver` or `sliver-server` enables you to use the Sliver framework.
 
-2. **Windows Attack Platform**: the windows host has undergone the following modifications: the firewall has been disabled, Windows Security has been turned off, the automatic update feature has been deactivated, and VMware Tools has been installed to facilitate moving or copying files between the physical machine and virtual machines.
+2. **Parrot Attack Platform**: the windows host has undergone the following modifications: the firewall has been disabled, Windows Security has been turned off, the automatic update feature has been deactivated, and VMware Tools has been installed to facilitate moving or copying files between the physical machine and virtual machines.
     - C2 Framework
         - [Metasploit Framework](https://windows.metasploit.com/)
         - [Sliver Framework](https://sliver.sh/)
