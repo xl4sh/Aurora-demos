@@ -167,7 +167,7 @@ Here is an example of the deployed attack emulation environments including two a
 
 </p>
 
-- Attackers: Kali, Windows 10<br>
+- Attackers: Kali, Parrot OS<br>
 - DNS_server: Debian<br>
 - Firewall: pfSense<br>
 - Victims：Windows 10, MacOS, Ubuntu<br>
