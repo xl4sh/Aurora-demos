@@ -21,7 +21,7 @@
 | Linux | Ubuntu-base | none | https://drive.google.com/file/d/1Qwj9qHnEN6Lu-GM2Fxmzcuib0HXW0mA-/view?usp=drive_link |
 | Mac | MacOS-base | none | https://drive.google.com/file/d/1HXDnXxBhyERsRNe-0Hkv3gMsJclo4zJX/view?usp=sharing	 |
 | Linux | firewall | none | https://drive.google.com/file/d/1c45DjG2GJXr312Lgb81WaymIMHocusCU/view?usp=drive_link	|
-| Linux | Aurora-executor-kali.ova | attacker | https://drive.google.com/file/d/1FCBZtsHM363eWor1xep4CzfNtMSio-RS/view?usp=drive_link |
+| Linux | Aurora-executor-kali.ova | attacker | https://drive.google.com/file/d/1LH237s_uxqT50KrQeBPlTo7rok1m7Q7O/view?usp=drive_link |
 
 
 
