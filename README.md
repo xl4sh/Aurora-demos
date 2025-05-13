@@ -261,6 +261,16 @@ This attack simulation targets Linux systems using `Metasploit`. It exploits the
 ![progress](images/bind_named_pipe_listener-1.gif)
 </details>
 
+## Mimicking CTI Reports
+When generating attack chains and emulating cyberattacks, Aurora can mimic the TTPs according to the CTI reports.
+Specifically, Aurora can select the attack chains that are most similar to the CTI reports.
+Here are the CTI reports covered by our system now.
+
+| Index | CTI Report |
+| --- | --- |
+| 1 | [AA23-341A](cti/1_AA23-341A/readme.md) |
+| 2 | [AA24-046A](cti/2_AA24-046A/readme.md) |
+
 ## Licensing
 Distributed under the Apache License 2.0 License.
 See `LICENSE` for more information.
