@@ -1,0 +1,7 @@
+During the Maroochy Water Breach, the adversary suppressed alarm reporting to the central computer. They gained remote computer access to the control system and altered data so that the intended functions at affected pumping stations either did not occur or occurred in an unintended way. This ultimately resulted in 800,000 liters of raw sewage being spilled into the community, affecting local parks, rivers, and even a nearby hotel. The spill harmed marine life and caused a sickening stench from the contaminated rivers.
+
+The adversary temporarily locked an investigator out of the network, preventing them from issuing controls or viewing the system’s status. Remote access to the system was achieved via radio. At four pumping stations, the adversary disabled alarms, preventing notifications from reaching the central computer.
+
+Using a laptop installed with software specifically developed for changing configurations in PDS (Process Control System) computers, the adversary was able to alter system behavior. To send false data and instructions to both the pumping stations and the central computer, they falsified network addresses and used a dedicated analog two-way radio system.
+
+The adversary likely operated from a computer — possibly stolen — equipped with proprietary engineering software to communicate with the wastewater system. They also used the two-way radio to communicate with and configure the frequencies of Maroochy Shire’s repeater stations.
