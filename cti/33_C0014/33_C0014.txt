@@ -1,0 +1,27 @@
+During the "Wocao Operation," threat actors employed a variety of methods and tools for attacks and data exfiltration.
+
+Firstly, the threat actors used the net command to retrieve domain account information. They also purchased servers with Bitcoin to use during the operation and communicated using HTTP and HTTPS with the XServer tool. For file collection, the threat actors archived the collected files with WinRAR before exfiltrating them. They ran a script to collect information from the infected system and collected clipboard data in plaintext.
+
+The threat actors also used PowerShell to execute commands on the compromised systems and spawned new cmd.exe processes. They used VBScript to conduct reconnaissance on the target systems, and their backdoors were written in Python and compiled with py2exe. The attackers successfully obtained and exfiltrated credentials from password managers.
+
+Regarding data exfiltration, the threat actors used the XServer backdoor tool to exfiltrate files and directories of interest, and they encrypted IP addresses used for “Agent” proxy hops with RC4. Additionally, they staged archived files in a temporary directory before exfiltration.
+
+In execution, the threat actors developed custom web shells and uploaded them to the compromised servers. Their proxy tool, "Agent," upgraded the socket in use to a TLS-encrypted socket. Throughout the operation, the threat actors registered multiple email accounts and used the XServer backdoor tool for data exfiltration.
+
+At the initial stage of the attack, the threat actors gained access by exploiting vulnerabilities in JBoss web servers. They then used stolen credentials to connect to the victim's network via VPN. During the operation, the threat actors gathered recursive directory listings to identify files and directories of interest and targeted individuals based on their organizational roles and privileges.
+
+Furthermore, the threat actors used PowerShell to modify Windows firewall rules, deleted Windows system and security event logs, and cleared traces of their activity using specific command-line operations. They also downloaded additional files onto the infected systems.
+
+In obtaining password manager credentials, the threat actors used a custom keylogger. For lateral movement, they used SMB to copy files to and from the target systems and renamed some tools and executables to make them appear as legitimate programs.
+
+During the operation, the threat actors enabled WDigest by modifying the registry to support plaintext password transmission. They also used a custom method to intercept two-factor authentication soft tokens. Using the CreateProcessA and ShellExecute API functions, they launched commands after being injected into a selected process.
+
+The threat actors scanned for open ports using nbtscan to find NETBIOS name servers and discovered network disks mounted to the system with netstat. They used a custom protocol for command and control and utilized uncommon high ports, including 25667 and 47000, for the backdoor C2 communication.
+
+When executing malicious commands, the threat actors encoded or compressed PowerShell commands using Base64, zlib, and XOR. They obtained open-source tools such as JexBoss, KeeThief, and BloodHound and used ProcDump and Mimikatz's DCSync functionality to dump credentials from memory.
+
+For lateral movement, the threat actors employed tools like Impacket’s smbexec.py, as well as accessing the C$ and IPC$ shares. They discovered remote systems using nbtscan, ping, and dsquery commands. Additionally, they used scheduled tasks to execute malicious PowerShell code on remote systems.
+
+The threat actors also used web shells for reconnaissance and employed PowerSploit’s Invoke-Kerberoast module to request encrypted service tickets and brute-force the passwords of Windows service accounts. They discovered local network configuration with the ipconfig command and checked for internet connectivity using VBScript.
+
+Finally, the threat actors used tasklist commands and network scanning techniques to detect open connections and other remote hosts on the infected systems. They also executed commands through Windows Task Manager. Through these various methods, the threat actors carried out a comprehensive and complex attack during the "Wocao Operation."
