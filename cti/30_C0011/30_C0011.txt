@@ -1,0 +1,5 @@
+For C0011, Transparent Tribe registered multiple domains that were likely crafted to appear relevant to student targets in India.  To facilitate the deployment of Crimson malware onto compromised hosts, the group used malicious VBA macros embedded within lure documents.  Additionally, they established SSL certificates on the typo-squatted domains they had registered, lending further credibility to their infrastructure.
+
+During the operation, Transparent Tribe employed a combination of social engineering tactics.  They sent emails to Indian students containing either malicious attachments or embedded links designed to lure victims into interacting with the payload.  These malicious documents were hosted on attacker-controlled domains, further enabling the malware delivery process.
+
+Moreover, the threat actors relied on user interaction, requiring the victims to either click on malicious links or open booby-trapped documents received via email.  
