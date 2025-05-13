@@ -1,0 +1,11 @@
+During Operation Sharpshooter, the threat actors used Dropbox to host lure documents and their first-stage downloader. The first-stage downloader installed Rising Sun to the %Startup%\mssync.exe path on the compromised host.
+
+The attackers executed a simple downloader via a VBA macro, which installed Rising Sun. Additionally, the attackers compromised a server, which became part of the campaign's infrastructure.
+
+The attackers used the Rising Sun modular backdoor and downloaded additional payloads after the target was infected by the first-stage downloader. They attacked victims by sending malicious Word OLE documents.
+
+During the operation, the attackers installed Rising Sun in the startup folder and disguised it as mssync.exe. The first-stage downloader resolved several Windows libraries and APIs, including LoadLibraryA(), GetProcAddress(), and CreateProcessA().
+
+Furthermore, the attackers used embedded shellcode to inject the downloader into the memory of Word. They also used the ExpressVPN service to hide their location and staged malicious files on Dropbox and other websites.
+
+The attackers relied on the victims executing malicious Microsoft Word or PDF files to trigger the attack.
