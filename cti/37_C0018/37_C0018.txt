@@ -1,0 +1,9 @@
+During C0018, the threat actors used HTTP for command and control (C2) communications. They executed encoded PowerShell scripts, frequently using Base64 encoding to obfuscate the content. Additionally, they deployed AvosLocker ransomware to encrypt files on the compromised network.
+
+To gain initial access, the threat actors exploited vulnerable VMWare Horizon Unified Access Gateways affected by several Log4Shell vulnerabilities, including CVE-2021-44228, CVE-2021-45046, CVE-2021-45105, and CVE-2021-44832. Following the exploitation, they downloaded additional tools such as Mimikatz, Sliver, Cobalt Strike, and AvosLocker onto the victim network.
+
+They transferred tools like the SoftPerfect Network Scanner to machines within the network using AnyDesk and PDQ Deploy. Notably, AvosLocker was disguised by naming it after the victim company, and a Sliver payload was renamed to vmware_kb.exe. The SoftPerfect Network Scanner was used to perform network scanning, while ports 28035, 32467, 41578, and 46892 were opened to establish Remote Desktop Protocol (RDP) connections.
+
+Moreover, the threat actors employed PDQ Deploy to move AvosLocker and related tools laterally across the network. AnyDesk was also used for transferring these tools between systems. To execute credential-dumping tools like Mimikatz, they leveraged rundll32.
+
+For reconnaissance, they executed nslookup and ran Advanced IP Scanner, as well as collected whoami information through PowerShell scripts. Additionally, they used WMIC to modify administrative settings on both local and remote hosts, likely as part of their initial lateral movement. Furthermore, they utilized the WMI Provider Host (wmiprvse.exe) to execute various encoded PowerShell scripts via the DownloadString method.

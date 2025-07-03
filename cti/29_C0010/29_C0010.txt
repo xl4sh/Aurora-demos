@@ -1,0 +1,5 @@
+During Operation C0010, the UNC3890 threat actors established a series of domains that impersonated legitimate services and organizations, including LinkedIn, Facebook, Office 365, and Pfizer, in an effort to deceive their targets. Furthermore, they likely compromised the domain of a legitimate Israeli shipping company and used its login page to host a watering hole, which remained active until at least November 2021. This watering hole was likely used to collect information from unsuspecting visitors.
+
+Throughout the campaign, UNC3890 deployed and utilized various custom malware strains, notably SUGARUSH and SUGARDUMP. They also acquired multiple publicly available offensive tools—such as Metasploit, Unicorn, and NorthStar C2—which were staged alongside the malware on attacker-controlled infrastructure for direct download to compromised systems.
+
+Besides,the threat actors compromised the login page of a legitimate Israeli shipping company and likely established a watering hole that collected visitor information. 

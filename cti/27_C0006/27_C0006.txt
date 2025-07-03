@@ -1,0 +1,13 @@
+During Operation Honeybee, the threat actors used the malicious NTWDBLIB.DLL and cliconfig.exe to bypass UAC protections.  They registered domains for C2, with at least one identified persona registering a free account for a control server.  FTP was also utilized for C2 communication.  In terms of exfiltration, the threat actors used zip to pack collected files before sending them out.  Various implants relied on batch scripting and cmd.exe for execution.
+
+Additionally, the threat actors used a Visual Basic script embedded within a Word document to download an implant.  They installed DLLs and backdoors as Windows services, enabling them to collect data from compromised hosts.  Stolen data was saved in a text file format, From <COMPUTER-NAME> (<Month>-<Day> <Hour>-<Minute>-<Second>).txt, before being compressed, encoded, and exfiltrated.
+
+Malicious files were decoded prior to execution, and the attackers created email addresses to register for a free account used by the control server to manage the implants.  The stolen files were then uploaded to their C2 servers.  To facilitate further compromise, the threat actors used a malicious DLL to search for files with specific keywords.
+
+As part of their persistence, they modified the COMSysApp service using a batch file to load a malicious ipnet.dll payload into the svchost.exe process.  In an effort to reduce their footprint on the compromised system, they deleted malware-related files.  They also downloaded additional malware and scripts to extend their control.
+
+To further disguise their activities, the attackers modified the MaoCheng dropper, making its icon resemble a Word document.  They employed legitimate Windows executables and secure directories for their payloads to bypass UAC.  Batch files were also used to modify registry keys as part of their persistence mechanism.
+
+The threat actors deployed malware using API calls, including CreateProcessAsUser, and encoded files with Base64 using a custom key.  To further mask their operations, they stole a digital signature from Adobe Systems, which was then used for the MaoCheng dropper.  They collected system information, such as the computer name and OS, by executing cmd /c systeminfo > %temp%\temp.ini.
+
+Finally, the attackers leveraged sc start and sc stop to control the COMSysApp service, allowing them to hijack it as part of their attack.  The success of the operation also relied on convincing victims to enable macros within a malicious Word document.

