@@ -1,3 +1,0 @@
-During the CostaRicto campaign, threat actors registered multiple domains, some of which appeared to spoof legitimate websites. They collected data and files from compromised networks and deployed custom malware, including PS1, CostaBricks, and SombRAT. To maintain access, they established remote SSH tunneling into victim environments, often routing through malicious domains and layers of proxies to manage command-and-control (C2) communications.
-
-The attackers downloaded malware and various tools onto compromised hosts and employed open-source utilities such as nmap and pscan to scan target environments. Additionally, they used scheduled tasks to download and install backdoor tools, further enabling persistent access within the network.
