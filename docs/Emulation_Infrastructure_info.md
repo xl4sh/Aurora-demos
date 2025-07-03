@@ -1,6 +1,18 @@
-## Emulation Infrastructure
+# An Example of the Attack Emulation Infrastructure
 
-### Attacker Information
+## Overview
+<p align="center">
+
+<img src="../images/the%20emulation%20infrastructure.jpg" alt="cli output" width="1200"/>
+
+</p>
+
+- Attackers: Kali, Parrot OS<br>
+- DNS_server: Debian<br>
+- Firewall: pfSense<br>
+- Victims：Windows 10, MacOS, Ubuntu<br>
+
+## Attacker Information
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
@@ -19,7 +31,7 @@ Running the `msfconsole` command in the Kali terminal allows you to use the Meta
 2. **Parrot Attack Platform**: Parrot OS has a similar configuration to Kali OS.
 
 
-### Firewall Information
+## Firewall Information
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
@@ -33,7 +45,7 @@ The firewall configuration is as follows:
 | LAN(lan) -> em1   | 192.168.56.1/24 |  victim-Windows10,victim-Ubuntu,victim-macOS   |
 | OPT1(opt1) -> em2   | 10.0.0.1/24 |  attacker-Kali,attacker-Windows10,DNS_server-Debian   |
 
-### DNS_server Information
+## DNS_server Information
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|
@@ -43,7 +55,7 @@ We have configured a DNS server using Debian. This server is intended to simulat
 You can simulate the attack process of downloading the implant to the local system on the victim-Windows 10 machine by accessing the phishing website through a browser and visiting the specified domain name `sliver.labnet.local`.
 
 
-### Victim information
+## Victim information
 
 | System        | IP Address          | Version          | username/password |
 |:-------------|:------------------|:------------------|:------------------|

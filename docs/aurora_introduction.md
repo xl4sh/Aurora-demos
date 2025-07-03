@@ -1,6 +1,6 @@
 # Aurora: An Automated Cyberattack Emulation System
 
-<p><a href="https://arxiv.org/pdf/2407.16928"><img src="images/First_page.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
+<p><a href="https://arxiv.org/pdf/2407.16928"><img src="../images/First_page.png" alt="Paper thumbnail" align="right" width="160"/></a></p>
 
 -   Introduces AURORA, a cyberattack emulation system that leverages classical planning (PDDL) and Large Language Models (LLMs).
 -   Constructs an extensive attack space containing over 5,000 attack actions and 1,000 attack chains.
@@ -19,7 +19,7 @@ Our paper: [From Sands to Mansions: Towards Automated Cyberattack Emulation with
 
 <p align="center">
 
-<img src="images/framework.png" alt="cli output" width="1000"/>
+<img src="../images/framework.png" alt="cli output" width="1000"/>
 
 </p>
 

@@ -1,6 +1,93 @@
-# Introduction to the environment
+# Introduction to the emulateion environment
 
-## The pulled virtual machine Details
+## Deploy the attacker machine
+The attacker machine should be equipped with the necessary attack tools.
+
+### Pull the pre-configured VM image
+We’ve prepared pre-configured attacker machine for you! You can download and deploy it directly from [here](https://drive.google.com/file/d/1LH237s_uxqT50KrQeBPlTo7rok1m7Q7O/view?usp=drive_link) or using this command:
+```bash
+# Windows
+python pull.py -k attacker -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+
+#Linux
+python pull.py -k attacker -d download -vm /usr/bin/VBoxManage --url_table docs/url_table.csv -nr
+```
+
+### Install the attack equipments by yourself
+We use [Attack Executor](https://github.com/LexusWang/attack_executor) to execute the attack actions provided by different attack tools.
+Detailed configuration steps are documented in [Guide](./docs/attacker_environment_setup_guide.md).
+
+If you find the step-by-step configuration cumbersome, you can use our provided [script](https://github.com/LexusWang/Aurora-demos/blob/main/docs/auto_deploy.sh) to install the environment required to execute the script with a single click.
+
+```bash
+# Kali attacker
+source auto_deploy.sh
+```
+
+## Deploy the victim machines
+Running `pull.py` on the attack chain YML file automatically downloads and deploys the corresponding victim machines.
+
+``` bash
+## Prohibit repeated VM downloading
+python pull.py -p #yml_file_path -d #storage_path -vm #VBoxManage.exe_path --url_table #url_table_path -nr -firewall #yes/no
+```
+- `-p #yml_file_path`：The path of the attack chain `.yml` file;  
+- `-d #storage_path`：The storage path of the downloaded VM file;  
+- `-vm #VBoxManage.exe_path`：The path of installed VirtualBox executable file (`VBoxManage.exe`);  
+- `--url_table #url_table_path`：The path of the Download Link mapping table (url_table.csv);
+- `-nr`：Prohibiting duplicate deployment;
+- `-r`：Allowing duplicate downloads;
+- `-firewall #yes/no`：Use pfSense firewall to isolate the attack host and the target host.  
+- `-k #search_key`：Instead of using the `.yml` file of the attack chain, directly search for the target machine or attack machine using `search_key` 
+
+Notes:
+- Two download modes are supported:
+  - No duplication (`-nr`): If the VM image file already exists, it will skip the downloading and directly proceed with deployment.
+  - Allow duplications (`-r`): VM image files will be automatically redownloaded and renamed to avoid conflicts.
+
+- During initial deployment, the VM will not start automatically, allowing users to modify configurations before first startup.
+
+- By default, two network adapters will be configured for each VM: one in NAT mode and the other in Host-only mode. Make sure the required network is configured in VirtualBox; otherwise, the VM may fail to start.
+
+
+<!-- Example:If you don't want to allow repeated downloads of the attack chain "examples\access_encrypted_edge_credentials\attack_chain.yml" corresponding to the range. You can use  -->
+Example: Deploy the emulation environments of the attack chain `attack_chains\keyboard_input_simulated-3\attack_chain.yml` on Windows:
+``` bash
+python pull.py -p attack_chains\keyboard_input_simulated-3\attack_chain.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall no
+```
+If the VM image file has been downloaded before, it will display:
+<p align="center">
+
+<img src="../images/No_repeat.png" alt="request" width="1200"/>
+
+</p>
+Entering "yes" will directly start the corresponding virtual machine.
+On the contrary, if duplication is allowed, the VM image file will be redownloaded and renamed to avoid conflicts.
+
+<br>
+
+<!-- ``` bash
+python pull.py -p examples\access_encrypted_edge_credentials\attack_chain.yml -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr -firewall yes
+``` -->
+If you want to use firewall for isolation. Just set `-firewall` as `yes`. 
+When using pfsense, the configuration interface is as follows:
+<p align="center">
+
+<img src="../images/pfsense.png" alt="pfsense set" width="1200"/>
+
+</p>
+⚠️ Please note that if you want to deploy a firewall, two host-only network adapters need to be set up in VirtualBox.
+Meanwhile, it is recommended to turn off the NAT network adapters (otherwise all VMs can connect directly).
+
+<br>
+In addition to building the VM from the `attack_chain.yml` files, you can also pull and deploy the VMs in this table by using the `-k` flag. It will search for the corresponding virtual machine through search_key.
+
+For example:
+``` bash
+python pull.py -k MacOS -d download -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --url_table docs\url_table.csv -nr
+```
+
+## Details of the pre-configured virtual machines
 
 | os_type | name | CVE | download_url |
 |:--:|----|----|----|
