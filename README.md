@@ -56,7 +56,7 @@ To reproduce the attacks, however, you will need to install [VirtualBox](https:/
 Specifically, You need to know the path of the command-line interface (CLI) tool for VirtualBox (e.g. `C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe` or `/usr/bin/VBoxManage`).
 
 ### 1. Deploy the attack emulation environments:
-To execute an emulated attack, you first need to deploy the attack environment, including both the attacker and victim machines.
+You first need to deploy the emulation environment, including both the attacker and victim machines.
 
 Each attack plan defines its required environment in the `attack_chain.yml` file. You can easily deploy it by running a Python script. For example:
 
