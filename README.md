@@ -198,7 +198,7 @@ Here are the CTI reports covered by in this repo.
 | 35 | [C0016](attacks/35_C0016/readme.md) |
 | 36 | [C0017](attacks/36_C0017/readme.md) |
 | 37 | [C0018](attacks/37_C0018/readme.md) |
-| 38 | [C00020](attacks/38_C00020/readme.md) |
+| 38 | [C0020](attacks/38_C0020/readme.md) |
 | 39 | [C0021](attacks/39_C0021/readme.md) |
 | 40 | [C0022](attacks/40_C0022/readme.md) |
 | 41 | [C0023](attacks/41_C0023/readme.md) |
