@@ -279,19 +279,31 @@ def main():
 
     # Keyword mode
     if args.searchkey:
-        print(f"\n[Keyword Mode] Searching for keyword '{args.searchkey}' in URL table...")
+        keys = [k.strip().lower() for k in args.searchkey.split(',') if k.strip()]
+        print(f"\n[Keyword Mode] Searching for keywords: {keys} in URL table...")
+
+        found = False
         with open(url_table_path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for row in reader:
-                if len(row) >= 3 and row[1].strip().lower() == args.searchkey.strip().lower():
-                    os_type = row[0].strip()
-                    download_url = row[2].strip()
-                    file_name = row[3].strip() if len(row) >= 4 and row[3].strip() else args.searchkey
-                    targets.append((args.searchkey, os_type, download_url, file_name))
-                    break
-            else:
-                print(f"No match found for keyword '{args.searchkey}' in URL table.")
-                return
+                if len(row) < 3:
+                    continue
+                os_type = row[1].strip()
+                raw_keys = row[3].strip() if len(row) >= 4 and row[3].strip() else ""
+                row_keys = [k.strip().lower() for k in raw_keys.split(',') if k.strip()]
+                download_url = row[4].strip()
+                file_name = row[5].strip() if len(row) >= 6 and row[5].strip() else "downloaded_file"
+
+                # if keyword match row one of search_key
+                if any(key in row_keys for key in keys):
+                    matched_key = next((k for k in keys if k in row_keys), keys[0])
+                    targets.append((matched_key, os_type, download_url, file_name))
+                    found = True
+
+        if not found:
+            print(f"No match found for any of the keywords: {keys} in URL table.")
+            return
+
 
     # Plan mode
     elif args.attack_plan:
@@ -303,14 +315,14 @@ def main():
         # read URL table
         with open(url_table_path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
-            url_table = [row for row in reader if len(row) >= 5]
+            url_table = [row for row in reader if len(row) >= 6]
 
         # 1. download attacker（search_key == attacker）
-        attacker_row = next((row for row in url_table if row[2].strip().lower() == 'attacker'), None)
+        attacker_row = next((row for row in url_table if row[3].strip().lower() == 'attacker'), None)
         if attacker_row:
             os_type = attacker_row[1].strip()
-            download_url = attacker_row[3].strip()
-            file_name = attacker_row[4].strip()
+            download_url = attacker_row[4].strip()
+            file_name = attacker_row[5].strip()
             base_name = os.path.splitext(file_name)[0]
             potential = [
                 os.path.join(download_dir, f"{base_name}.ova"),
@@ -343,11 +355,11 @@ def main():
             matched = False
             for row in url_table:
                 table_host_id = row[0].strip()
-                if host_id.strip().lower() == table_host_id.strip().lower():
+                if host_id.strip().lower() == table_host_id.lower():
                     os_type = row[1].strip()
-                    search_key = row[2].strip()
-                    url = row[3].strip()
-                    file_name = row[4].strip()
+                    search_key = row[3].strip()
+                    url = row[4].strip()
+                    file_name = row[5].strip()
                     base_name = os.path.splitext(file_name)[0]
                     potential = [
                         os.path.join(download_dir, f"{base_name}.ova"),
@@ -376,7 +388,6 @@ def main():
                         matched = True
                         break
 
-                    # 否则下载并处理
                     file_path = download_file(url, download_dir, url_table_path)
                     if not file_path:
                         print(f"[Error] Failed to download VM for host {host_id}.")
@@ -390,6 +401,10 @@ def main():
                     break
             if not matched:
                 print(f"[Warning] No match found for host '{host_id}' in URL table.")
+                print("Available host_ids in URL table:")
+                for row in url_table:
+                    print(f"  - {row[0].strip()}")
+
 
     # Process targets
     for idx, (cve, os_type, download_url, custom_file_name) in enumerate(targets, 1):
