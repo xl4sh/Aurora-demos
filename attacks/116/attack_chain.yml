@@ -477,7 +477,7 @@ attack_action_sequence:
       new_startup_folder:
         description: new startup folder to replace standard one
         type: string
-        default: $env:TMP\atomictest\
+        default: $env:TMP\atomictest
       payload:
         description: 'executable to be placed in new startup location '
         type: string

