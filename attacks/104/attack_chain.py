@@ -87,7 +87,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net localgroup
     net localgroup "Administrators"
     """

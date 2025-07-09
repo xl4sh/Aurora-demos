@@ -78,7 +78,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net user /domain
     net group /domain
     """
@@ -87,7 +87,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net localgroup
     net localgroup "Administrators"
     """

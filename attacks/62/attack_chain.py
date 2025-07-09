@@ -79,7 +79,7 @@ async def main():
     confirm_action()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net user /domain
     net group /domain
     """

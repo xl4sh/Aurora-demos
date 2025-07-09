@@ -140,7 +140,7 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
+    commands = f"""
     net localgroup
     net localgroup "Administrators"
     """

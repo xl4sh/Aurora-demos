@@ -90,7 +90,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net groups "Account Operators" /doma
     net groups "Exchange Organization Management" /doma
     net group "BUILTIN\Backup Operators" /doma

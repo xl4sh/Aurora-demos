@@ -145,7 +145,7 @@ async def main():
         raise
 
     confirm_action()
-    commands = """
+    commands = f"""
     arp -a
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

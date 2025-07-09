@@ -103,8 +103,8 @@ async def main():
     if not user_input and False:
         raise ValueError("Missing required parameter: command_to_execute")
     user_params["command_to_execute"] = user_input
-    commands = """
-    REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic Red Team" /t REG_SZ /F /D "#{command_to_execute}"
+    commands = f"""
+    REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /V "Atomic Red Team" /t REG_SZ /F /D "{user_params["command_to_execute"]}"
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)
 

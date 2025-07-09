@@ -68,7 +68,7 @@ async def main():
     sliver_sessionid = await sliver_executor.select_sessions()
 
     confirm_action()
-    commands = """
+    commands = f"""
     net user /domain
     net group /domain
     """
