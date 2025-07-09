@@ -81,7 +81,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: tcp[/]")
     console.print(f"  Description: Show TCP connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for tcp [default: {default_val}]: [/]"
     ) or default_val
@@ -92,7 +92,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: udp[/]")
     console.print(f"  Description: Show UDP connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for udp [default: {default_val}]: [/]"
     ) or default_val
@@ -103,7 +103,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv4[/]")
     console.print(f"  Description: Show IPv4 connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for ipv4 [default: {default_val}]: [/]"
     ) or default_val
@@ -114,7 +114,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv6[/]")
     console.print(f"  Description: Show IPv6 connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for ipv6 [default: {default_val}]: [/]"
     ) or default_val
@@ -125,7 +125,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: listening[/]")
     console.print(f"  Description: Show listening ports (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for listening [default: {default_val}]: [/]"
     ) or default_val
@@ -169,7 +169,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -192,7 +192,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 13 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
     console.print(f"  Description: Path to directory for saving the generated zip file")
-    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    default_val = r"PathToAtomicsFolder\..\ExternalPayloads\T1005"
     user_input = console.input(
         f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
     ) or default_val
@@ -210,7 +210,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -234,7 +234,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Location to save zipped file or folder")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -245,7 +245,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Location of file or folder to zip")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val

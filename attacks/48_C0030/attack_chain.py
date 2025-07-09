@@ -118,7 +118,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: binary_to_execute[/]")
     console.print(f"  Description: Path of binary to execute")
-    default_val = "C:\Windows\System32\cmd.exe"
+    default_val = r"C:\Windows\System32\cmd.exe"
     user_input = console.input(
         f"[bold]➤ Enter value for binary_to_execute [default: {default_val}]: [/]"
     ) or default_val
@@ -139,7 +139,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Path where captured results will be placed")
-    default_val = "$env:TEMP\T1113.png"
+    default_val = r"$env:TEMP\T1113.png"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -159,7 +159,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
     console.print(f"  Description: Path to directory for saving the generated zip file")
-    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    default_val = r"PathToAtomicsFolder\..\ExternalPayloads\T1005"
     user_input = console.input(
         f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
     ) or default_val
@@ -177,7 +177,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -201,7 +201,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Location to save zipped file or folder")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -212,7 +212,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Location of file or folder to zip")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val
@@ -393,7 +393,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 36 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: Payload[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for Payload [default: {default_val}]: [/]"
     ) or default_val
@@ -404,7 +404,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 36 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LHOST[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LHOST [default: {default_val}]: [/]"
     ) or default_val
@@ -415,7 +415,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 36 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LPORT[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LPORT [default: {default_val}]: [/]"
     ) or default_val

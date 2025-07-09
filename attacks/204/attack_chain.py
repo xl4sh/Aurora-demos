@@ -121,7 +121,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: new_startup_folder[/]")
     console.print(f"  Description: new startup folder to replace standard one")
-    default_val = "$env:TMP\atomictest"
+    default_val = r"$env:TMP\atomictest"
     user_input = console.input(
         f"[bold]➤ Enter value for new_startup_folder [default: {default_val}]: [/]"
     ) or default_val
@@ -132,7 +132,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: payload[/]")
     console.print(f"  Description: executable to be placed in new startup location ")
-    default_val = "C:\Windows\System32\calc.exe"
+    default_val = r"C:\Windows\System32\calc.exe"
     user_input = console.input(
         f"[bold]➤ Enter value for payload [default: {default_val}]: [/]"
     ) or default_val
@@ -153,7 +153,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -177,7 +177,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Path that should be compressed into our output file")
-    default_val = "$env:USERPROFILE"
+    default_val = r"$env:USERPROFILE"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val
@@ -188,7 +188,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Path where resulting compressed data should be placed")
-    default_val = "$env:USERPROFILE\T1560-data-ps.zip"
+    default_val = r"$env:USERPROFILE\T1560-data-ps.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -208,7 +208,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Path where captured results will be placed")
-    default_val = "$env:TEMP\T1113.png"
+    default_val = r"$env:TEMP\T1113.png"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -228,7 +228,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
     console.print(f"  Description: Path to directory for saving the generated zip file")
-    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    default_val = r"PathToAtomicsFolder\..\ExternalPayloads\T1005"
     user_input = console.input(
         f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
     ) or default_val

@@ -141,7 +141,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -165,7 +165,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Path that should be compressed into our output file")
-    default_val = "$env:USERPROFILE"
+    default_val = r"$env:USERPROFILE"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val
@@ -176,7 +176,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Path where resulting compressed data should be placed")
-    default_val = "$env:USERPROFILE\T1560-data-ps.zip"
+    default_val = r"$env:USERPROFILE\T1560-data-ps.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -196,7 +196,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: executable_binary[/]")
     console.print(f"  Description: Binary to execute with UAC Bypass")
-    default_val = "C:\Windows\System32\cmd.exe"
+    default_val = r"C:\Windows\System32\cmd.exe"
     user_input = console.input(
         f"[bold]➤ Enter value for executable_binary [default: {default_val}]: [/]"
     ) or default_val

@@ -107,7 +107,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 11 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: RemotePath[/]")
     console.print(f"  Description: Remote path")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for RemotePath [default: {default_val}]: [/]"
     ) or default_val
@@ -118,7 +118,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 11 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: Data[/]")
     console.print(f"  Description: Data to write")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for Data [default: {default_val}]: [/]"
     ) or default_val
@@ -129,7 +129,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 11 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: IsIOC[/]")
     console.print(f"  Description: Data is an indicator of compromise")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for IsIOC [default: {default_val}]: [/]"
     ) or default_val
@@ -182,7 +182,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
     console.print(f"  Description: Path to directory for saving the generated zip file")
-    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    default_val = r"PathToAtomicsFolder\..\ExternalPayloads\T1005"
     user_input = console.input(
         f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
     ) or default_val
@@ -200,7 +200,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -224,7 +224,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Location to save zipped file or folder")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -235,7 +235,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Location of file or folder to zip")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val

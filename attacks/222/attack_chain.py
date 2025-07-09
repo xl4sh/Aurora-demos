@@ -70,7 +70,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: tcp[/]")
     console.print(f"  Description: Show TCP connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for tcp [default: {default_val}]: [/]"
     ) or default_val
@@ -81,7 +81,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: udp[/]")
     console.print(f"  Description: Show UDP connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for udp [default: {default_val}]: [/]"
     ) or default_val
@@ -92,7 +92,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv4[/]")
     console.print(f"  Description: Show IPv4 connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for ipv4 [default: {default_val}]: [/]"
     ) or default_val
@@ -103,7 +103,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: ipv6[/]")
     console.print(f"  Description: Show IPv6 connections (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for ipv6 [default: {default_val}]: [/]"
     ) or default_val
@@ -114,7 +114,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 5 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: listening[/]")
     console.print(f"  Description: Show listening ports (true/false)")
-    default_val = "True"
+    default_val = r"True"
     user_input = console.input(
         f"[bold]➤ Enter value for listening [default: {default_val}]: [/]"
     ) or default_val
@@ -219,7 +219,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: binary_to_execute[/]")
     console.print(f"  Description: Path of binary to execute")
-    default_val = "C:\Windows\System32\cmd.exe"
+    default_val = r"C:\Windows\System32\cmd.exe"
     user_input = console.input(
         f"[bold]➤ Enter value for binary_to_execute [default: {default_val}]: [/]"
     ) or default_val
@@ -249,7 +249,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 18 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: remote_path[/]")
     console.print(f"  Description: Full path of the directory to create")
-    default_val = ""
+    default_val = r""
     user_input = console.input(
         f"[bold]➤ Enter value for remote_path [default: {default_val}]: [/]"
     ) or default_val
@@ -273,7 +273,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 19 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Location to save zipped file or folder")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -284,7 +284,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 19 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: input_file[/]")
     console.print(f"  Description: Location of file or folder to zip")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for input_file [default: {default_val}]: [/]"
     ) or default_val
@@ -355,7 +355,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 28 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: Payload[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for Payload [default: {default_val}]: [/]"
     ) or default_val
@@ -366,7 +366,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 28 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LHOST[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LHOST [default: {default_val}]: [/]"
     ) or default_val
@@ -377,7 +377,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 28 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LPORT[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LPORT [default: {default_val}]: [/]"
     ) or default_val
@@ -426,7 +426,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 32 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: Payload[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for Payload [default: {default_val}]: [/]"
     ) or default_val
@@ -437,7 +437,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 32 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LHOST[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LHOST [default: {default_val}]: [/]"
     ) or default_val
@@ -448,7 +448,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[Sliver Executor] Step 32 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: LPORT[/]")
     console.print(f"  Description: IP address of the attacker machine")
-    default_val = "None"
+    default_val = r"None"
     user_input = console.input(
         f"[bold]➤ Enter value for LPORT [default: {default_val}]: [/]"
     ) or default_val

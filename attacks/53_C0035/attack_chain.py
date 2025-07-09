@@ -74,7 +74,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 6 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_zip_folder_path[/]")
     console.print(f"  Description: Path to directory for saving the generated zip file")
-    default_val = "PathToAtomicsFolder\..\ExternalPayloads\T1005"
+    default_val = r"PathToAtomicsFolder\..\ExternalPayloads\T1005"
     user_input = console.input(
         f"[bold]➤ Enter value for output_zip_folder_path [default: {default_val}]: [/]"
     ) or default_val

@@ -193,7 +193,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 17 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: binary_to_execute[/]")
     console.print(f"  Description: Path of binary to execute")
-    default_val = "C:\Windows\System32\cmd.exe"
+    default_val = r"C:\Windows\System32\cmd.exe"
     user_input = console.input(
         f"[bold]➤ Enter value for binary_to_execute [default: {default_val}]: [/]"
     ) or default_val

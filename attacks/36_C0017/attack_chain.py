@@ -99,7 +99,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 9 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -122,7 +122,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 10 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -145,7 +145,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 11 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -168,7 +168,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 12 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -191,7 +191,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 13 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -214,7 +214,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 14 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -237,7 +237,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 15 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
@@ -260,7 +260,7 @@ async def main():
     console.print(f"[bold cyan]\n📌[PowerShell Executor] Step 16 Parameter Input[/]")
     console.print(f"[bold yellow]  Parameter: output_file[/]")
     console.print(f"  Description: Output file path")
-    default_val = "c:\temp\T1113_desktop.zip"
+    default_val = r"c:\temp\T1113_desktop.zip"
     user_input = console.input(
         f"[bold]➤ Enter value for output_file [default: {default_val}]: [/]"
     ) or default_val
