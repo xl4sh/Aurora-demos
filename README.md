@@ -109,9 +109,6 @@ Click the following headings to watch some demos:
 <details>
 <summary>EXAMPLE-1_AA23-341A</summary>
 
-This attack plan uses `Metasploit` and `Sliver` tools to compromise Windows systems. First, a listener is established to capture incoming connections. A malicious `Sliver` payload is then created and delivered by tricking the victim into downloading/running it, granting remote access. Finally, this access is leveraged to deploy a stealthy `Meterpreter` payload via `Sliver` for data exfiltration (`keyboard input simulation`)
-
-
 ![progress](images/AA23-341A.gif)
 
 </details>
@@ -119,17 +116,12 @@ This attack plan uses `Metasploit` and `Sliver` tools to compromise Windows syst
 <details>
 <summary>EXAMPLE-2_AA24-046A</summary>
 
-This attack simulation targets Windows systems using `Sliver` and `Metasploit`. It starts by creating a `Sliver` implant (malicious.exe) and tricking the victim into downloading/running it as Administrator. This grants attackers an elevated `Sliver` C2 session. Next, a `Metasploit` listener is set up to catch a reverse HTTPS payload ("meterpreter_reverse_http") deployed through `Sliver`, enabling a stealthy `Meterpreter` session. Finally, attackers use `Meterpreter` to search for sensitive files (like *.txt) on compromised machines.
-
 
 ![progress](images/AA24-046A.gif)
 </details>
 
 <details>
 <summary>EXAMPLE-3_ALPHVBlackcat</summary>
-
-This attack simulation targets Windows systems using `Sliver` and `Metasploit`. It starts by creating a `Sliver` implant (malicious.exe) and tricking the victim into downloading/running it as Administrator. This grants attackers an elevated `Sliver` C2 session. Next, a `Metasploit` listener is set up to catch a reverse HTTPS payload ("meterpreter_reverse_http") deployed through `Sliver`, enabling a stealthy `Meterpreter` session. Finally, attackers use `Meterpreter` to display the current active desktop session information on compromised machines.
-
 
 ![progress](images/ALPHVBlackcat.gif)
 </details>
