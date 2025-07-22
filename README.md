@@ -107,12 +107,12 @@ Once the emulation environment is deployed, follow the steps below to execute th
 
 Click the following headings to watch some demos:
 <details>
-<summary>EXAMPLE-1_execution_keyboard_input_simulated-3</summary>
+<summary>EXAMPLE-1_AA23-341A</summary>
 
 This attack plan uses `Metasploit` and `Sliver` tools to compromise Windows systems. First, a listener is established to capture incoming connections. A malicious `Sliver` payload is then created and delivered by tricking the victim into downloading/running it, granting remote access. Finally, this access is leveraged to deploy a stealthy `Meterpreter` payload via `Sliver` for data exfiltration (`keyboard input simulation`)
 
 
-![progress](images/example1.gif)
+![progress](images/AA23-341A.gif)
 
 </details>
 
