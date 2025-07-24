@@ -28,7 +28,7 @@ arguments:
     Required: true
     Description: The name of the legitimate, signed executable that will be exploited to load the malicious DLL.
 preconditions:
-  - (powershell_session ?eID - executor ?target - host)
-  - (legitimate_executable ?target - host ?bypass - executable)
+  - (powershell ?eID - executor ?target - host)
+  - (shellcode_payload ?p - payload ?s - shellcode)
 effects:
   - (sliver_session ?eID - executor ?target - host)
