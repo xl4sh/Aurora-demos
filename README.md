@@ -130,7 +130,8 @@ Click the following headings to watch some demos:
 
 ## Mimicking CTI Reports
 As demonstrated in the paper, Aurora can tailor generated attacks based on CTI reports to mimic specific real-world APT groups.
-While ensuring the correctness and causality of the attacks, Aurora selects TTPs that closely match those described in the reports.
+While ensuring the correctness and causality of the attacks, Aurora selects TTPs that closely match those described in the reports. For instance, 
+several actions in this repository simulate TTPs attributed to the 'Silver Fox'(https://github.com/LexusWang/Aurora-demos/tree/main/silver-fox_actions) threat actor, particularly their methods for defense evasion and persistence on Windows systems.
 Here are the CTI reports covered by in this repo.
 
 | Index | Attack Chain | CTI Report |
