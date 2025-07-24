@@ -23,7 +23,7 @@ arguments:
     Required: true
     Description: The full path to the malicious executable or script to be executed at logon.
 preconditions:
-  - (powershell_session ?eID - executor ?target - host)
+  - (powershell ?eID - executor ?target - host)
 effects:
   - (registry_modified ?target - host ?regPath - registry_key)
-  - (file_executed ?file - file ?target - host)
+  - (file_execution_at_startup ?file - file ?target - host)
