@@ -42,8 +42,7 @@ arguments:
     Required: true
     Description: The name of the protected process to be terminated by the exploit.
 preconditions:
-  - (powershell_session ?eID - executor ?target - host)
-  - (is_administrator ?target - host)
-  - (legitimate_executable ?target - host ?bypass - executable)
+  - (powershell ?eID - executor ?target - host)
+  - (administrator_user ?user - user)
 effects:
   - (process_terminated ?process - process ?target - host)
