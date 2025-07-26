@@ -222,7 +222,7 @@ def main():
     parser.add_argument('-k', '--searchkey', help="Directly specify a keyword to match 'search_key' column in URL table")
     parser.add_argument('-d', '--download_dir', default='downloads', help="Storage path")
     parser.add_argument('-vm', '--vm_path', default='C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', help="VirtualBox path")
-    parser.add_argument('--url_table', default='docs\\url_table.csv', help="Path to the URL table CSV file")
+    parser.add_argument('--url_table', default=str(Path("docs") / "url_table.csv"), help="Path to the URL table CSV file")
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-r', '--repeat', action='store_true', help="Allow repeated downloads with renamed files")
     group.add_argument('-nr', '--no_repeat', action='store_true', help="Avoid repeated downloads if file or folder exists")
