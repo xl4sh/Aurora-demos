@@ -61,7 +61,11 @@ You first need to deploy the emulation environment, including both the attacker 
 Each attack plan defines its required environment in the `attack_chain.yml` file. You can easily deploy it by running a Python script. For example:
 
 ```bash
-python pull.py --attack_plan attacks/1_AA23-341A/attack_chain.yml
+# Windows
+python pull.py -vm C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe --attack_plan attacks/1_AA23-341A/attack_chain.yml
+
+# Linux
+python pull.py -vm /usr/bin/VBoxManage --attack_plan attacks/1_AA23-341A/attack_chain.yml
 ```
 
 If you want to build the emulation environments by yourself, please refer to this [page](docs/environment_introduction.md).
