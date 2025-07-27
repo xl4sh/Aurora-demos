@@ -26,21 +26,23 @@ def get_unique_filename(dest_dir, file_name):
 
 def download_file(url, dest_dir, csv_file):
     os.makedirs(dest_dir, exist_ok=True)
-    
+
     try:
         file_id = url.split('/d/')[1].split('/')[0]
     except IndexError:
         print(f"[Error] can not get url ID: {url}")
         return None
 
-    file_name = file_id
+    file_name = file_id  # default to file_id
     if os.path.exists(csv_file):
         with open(csv_file, mode='r', encoding='utf-8') as f:
-            reader = csv.reader(f)
+            reader = csv.DictReader(f)
             for row in reader:
-                if row[2].strip() == url:
-                    if len(row) >= 4 and row[3].strip():
-                        file_name = row[3].strip()
+                row_url = row.get("url", "").strip().replace("\t", "")
+                if row_url == url.strip().replace("\t", ""):
+                    file_name = row.get("name", "").strip()
+                    if file_name:
+                        print(f"Using custom file name from CSV: {file_name}")
                     break
 
     unique_file_name = get_unique_filename(dest_dir, file_name)
@@ -49,7 +51,16 @@ def download_file(url, dest_dir, csv_file):
     print(f"Downloading Google Drive file: {file_id} to {unique_dest_path}")
     try:
         gdown.download(id=file_id, output=unique_dest_path, resume=True)
+
+        # If the CSV-based file name differs, rename after download
+        if file_name != unique_file_name:
+            correct_path = os.path.join(dest_dir, get_unique_filename(dest_dir, file_name))
+            os.rename(unique_dest_path, correct_path)
+            print(f"Renamed downloaded file to: {correct_path}")
+            return correct_path
+
         return unique_dest_path
+
     except Exception as e:
         print(f"Error downloading Google Drive file {url}: {e}")
         return None
@@ -239,12 +250,13 @@ def main():
     if args.firewall == 'yes':
         print("\nProcessing firewall VM first...")
         with open(url_table_path, 'r', encoding='utf-8') as f:
-            reader = csv.reader(f)
+            reader = csv.DictReader(f)
             for row in reader:
-                if len(row) >= 3 and row[1].strip().lower() == 'firewall':
-                    os_type = row[0].strip()
-                    download_url = row[2].strip()
-                    file_name = row[3].strip() if len(row) >= 4 and row[3].strip() else 'firewall'
+                if row.get('os_type', '').strip().lower() == 'firewall':
+                    os_type = row.get('host_id', '').strip()
+                    download_url = row.get('url', '').strip()
+                    file_name = row.get('name', '').strip() or 'firewall'
+
                     base_name = os.path.splitext(file_name)[0]
                     potential = [
                         os.path.join(download_dir, f"{base_name}.ova"),
